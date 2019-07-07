@@ -16,7 +16,7 @@ async def on_command_error(ctx, error):
 async def swds(ctx):
     await ctx.send('''Sword World Diceroll System
     略称SWDSです。ソーズ(Swords)とお呼び下さい。
-    -rで2d6が振れます。''')
+    -rで2d6が振れます。-srで1d6が振れます。''')
 
 a = random.randint(1,6)
 b = random.randint(1,6)
