@@ -18,12 +18,16 @@ async def swds(ctx):
     略称SWDSです。ソーズ(Swords)とお呼び下さい。
     -rで2d6が振れます。''')
 
-#2d6を振るコマンド
+a = random.randint(1,6)
+b = random.randint(1,6)
+c = a + b
+
+#ダイスを振るコマンド
+@bot.command()
+async def r1(ctx):
+    await ctx.send(f'{a}')
 @bot.command()
 async def r(ctx):
-    a = random.randint(1,6)
-    b = random.randint(1,6)
-    c = a + b
     if c == 2:
         await ctx.send(f'{a} + {b} = {c} fumble...')
     elif c == 12:
