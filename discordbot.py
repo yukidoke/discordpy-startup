@@ -24,7 +24,7 @@ c = a + b
 
 #ダイスを振るコマンド
 @bot.command()
-async def r1(ctx):
+async def r(ctx):
     await ctx.send(f'{a}')
 @bot.command()
 async def r(ctx):
