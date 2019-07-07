@@ -24,7 +24,13 @@ async def r(ctx):
     a = random.randint(1,6)
     b = random.randint(1,6)
     c = a + b
-    await ctx.send(f'{a} + {b} = {c}')
+    if c == 2:
+        await ctx.send(f'{a} + {b} = {c} fumble...')
+    elif c == 12:
+        await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
+    else:
+        await ctx.send(f'{a} + {b} = {c}')
+        
 
 
 bot.run(token)
