@@ -3,7 +3,7 @@ import os
 import traceback
 import random
 
-bot = commands.Bot(command_prefix='/')
+bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
 
 
@@ -11,7 +11,14 @@ token = os.environ['DISCORD_BOT_TOKEN']
 async def on_command_error(ctx, error):
     await ctx.send(str(error))
 
+#概要を説明するコマンド
+@bot.command()
+async def swds(ctx):
+    await ctx.send('''Sword World Diceroll System
+    略称SWDSです。ソーズ(Swords)とお呼び下さい。
+    -rで2d6が振れます。''')
 
+#2d6を振るコマンド
 @bot.command()
 async def r(ctx):
     a = random.randint(1,6)
