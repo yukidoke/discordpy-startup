@@ -38,8 +38,8 @@ async def r(ctx):
 #slapper
 class Slapper(commands.Converter):
     async def convert(self, ctx, argument):
-        to_slap = random.choice(ctx.guild.members)
-        return '{0.author} slapped {1} because *{2}*'.format(ctx, to_slap, argument)
+        attack = random.choice(ctx.guild.members)
+        return '{0.author} attacked {1} because {2}'.format(ctx, attack, argument)
 
 @bot.command()
 async def slap(ctx, *, reason: Slapper):
