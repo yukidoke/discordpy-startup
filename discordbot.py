@@ -36,14 +36,10 @@ async def r(ctx):
         await ctx.send(f'{a} + {b} = {c}')
 
 #slapper
-class Slapper(commands.Converter):
-    async def convert(self, ctx, argument):
-        attack = random.choice(ctx.guild.members)
-        return '{0.author} attacked {1} because {2}'.format(ctx, attack, argument)
-
 @bot.command()
-async def slap(ctx, *, reason: Slapper):
-    await ctx.send(reason)
+async def atk(ctx, *):
+    attack = random.choice(ctx.guild.members)
+    await ctx.send(f'The monster attacked {attack}.')
 
 
 bot.run(token)
