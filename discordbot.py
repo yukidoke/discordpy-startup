@@ -23,11 +23,6 @@ a = random.randint(1,6)
 b = random.randint(1,6)
 c = a + b
 
-#ダイスを振るコマンド
-@bot.command()
-async def sr(ctx):
-    await ctx.send(f'{a}')
-
 def dice(dice_size):
     num = random.randint(1, int(dice_size))
     return num
@@ -37,6 +32,11 @@ def simple_dice(dice_size, dice_num):
         dice_val.append(dice(dice_size))
     msg = str(dice_val) + ' = ' + str(sum(dice_val)) 
     return msg
+
+#ダイスを振るコマンド
+@bot.command()
+async def sr(ctx):
+    await ctx.send(f'{a}')
 
 @bot.command()
 async def r(ctx):
