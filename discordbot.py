@@ -47,12 +47,12 @@ async def r(ctx):
 #        dice_size = int(info[1])
 #        await ctx.send(f'{msg}')
 #    else:
-        if c == 2:
-            await ctx.send(f'{a} + {b} = {c} fumble...')
-        elif c == 12:
-            await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
-        else:
-            await ctx.send(f'{a} + {b} = {c}')
+    if c == 2:
+        await ctx.send(f'{a} + {b} = {c} fumble...')
+    elif c == 12:
+        await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
+    else:
+        await ctx.send(f'{a} + {b} = {c}')
 
 
 bot.run(token)
