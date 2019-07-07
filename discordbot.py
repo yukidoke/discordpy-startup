@@ -1,4 +1,5 @@
 from discord.ext import commands
+from parse import *
 import os
 import traceback
 import random
@@ -26,14 +27,32 @@ c = a + b
 @bot.command()
 async def sr(ctx):
     await ctx.send(f'{a}')
+
+def dice(dice_size):
+    num = random.randint(1, int(dice_size))
+    return num
+def simple_dice(dice_size, dice_num):
+    dice_val = []
+    for i in range(dice_num):
+        dice_val.append(dice(dice_size))
+    msg = str(dice_val) + ' = ' + str(sum(dice_val)) 
+    return msg
+
 @bot.command()
 async def r(ctx):
-    if c == 2:
-        await ctx.send(f'{a} + {b} = {c} fumble...')
-    elif c == 12:
-        await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
+    if bot.user != ctx.author:
+        info = parse('r {}d{}', ctx)
+    if info[1].isdecimal() and info[0].isdecimal():
+        dice_num = int(info[0])
+        dice_size = int(info[1])
+        await ctx.send(f'{msg}')
     else:
-        await ctx.send(f'{a} + {b} = {c}')
+        if c == 2:
+            await ctx.send(f'{a} + {b} = {c} fumble...')
+        elif c == 12:
+            await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
+        else:
+            await ctx.send(f'{a} + {b} = {c}')
 
 
 bot.run(token)
