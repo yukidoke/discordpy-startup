@@ -35,5 +35,10 @@ async def r(ctx):
     else:
         await ctx.send(f'{a} + {b} = {c}')
 
+@bot.command()
+async def atk(ctx):
+    attack = random.choice(ctx.guild.members)
+    await ctx.send(f'The monster attacked {attack}.')
+
 
 bot.run(token)
