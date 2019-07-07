@@ -1,5 +1,5 @@
 from discord.ext import commands
-from parse import *
+#from parse import *
 import os
 import traceback
 import random
