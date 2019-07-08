@@ -20,11 +20,18 @@ a = random.randint(1,6)
 def dice(face):
     count = random.randint(1, int(face))
     return count
-def simple_dice(face, count):
+
+def dice_value(face, count):
     dice_val = []
     for i in range(count):
         dice_val.append(dice(face))
-    msg = str(dice_val) + ' = ' + str(sum(dice_val))
+    return sum(dice_val)
+
+def simple_dice(face, count):
+    dice_value = []
+    for i in range(count):
+        dice_value.append(dice(face))
+    msg = str(dice_value) + ' = ' + str(dice_value(face,count))
     return msg
 
 #1個だけ6面ダイスを振るコマンド
