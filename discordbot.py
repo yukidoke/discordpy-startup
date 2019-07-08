@@ -42,10 +42,10 @@ async def sr(ctx):
 @bot.command()
 async def r(ctx):
     if bot.user != ctx.author:
-        info = parse('-r {}d{}', ctx.message.content)
-    if info[1].isdecimal() and info[0].isdecimal():
+        info = parse('-r {}{}{}', ctx.message.content)
+    if info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
         dice_num = int(info[0])
-        dice_size = int(info[1])
+        dice_size = int(info[2])
         await ctx.send(f'{simple_dice(dice_size, dice_num)}')
     else:
         if c == 2:
