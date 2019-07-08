@@ -38,7 +38,7 @@ async def sr(ctx):
 async def r(ctx):
     print("content: ", ctx.message.content)
     if bot.user != ctx.author:
-        info = parse('-r {}{}{}', ctx.message.content)
+        info = parse('-r {}{}{}{}', ctx.message.content)
         print("info:", info)
         if info is None:
             dice_num = 2
