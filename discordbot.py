@@ -25,7 +25,7 @@ def value(size, num):
     for i in range(num):
         val.append(d(size))
     return sum(val)
-def sd():
+def sd(size, num):
     msg = str(val) + ' = ' + str(sum(val))
     return msg
 
