@@ -12,11 +12,10 @@ token = os.environ['DISCORD_BOT_TOKEN']
 async def swds(ctx):
     await ctx.send('''Sword World Diceroll System
     略称SWDSです。ソーズ(Swords)とお呼び下さい。
-    -rで2d6が振れます。-srで1d6が振れます。''')
+    '-r'で2d6を振ります。'-sr'で1d6を振ります。
+    '-r'の後にnをダイスの数、Nを面の数として'-r ndN'として頂ければ、そのようにダイスを振ります。''')
 
 a = random.randint(1,6)
-b = random.randint(1,6)
-c = a + b
 
 def dice(dice_size):
     num = random.randint(1, int(dice_size))
@@ -47,10 +46,10 @@ async def r(ctx):
         elif info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
             dice_num = int(info[0])
             dice_size = int(info[2])
-            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+            await ctx.send(f'「{info[3]}」 {simple_dice(dice_size, dice_num)}')
         else:
             dice_num = 2
             dice_size = 6
-            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+            await ctx.send(f'「{info[0]}{info[1]}{info[2]}{info[3]}」 {simple_dice(dice_size, dice_num)}')
 
 bot.run(token)
