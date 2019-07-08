@@ -20,12 +20,12 @@ a = random.randint(1,6)
 def d(size):
     num = random.randint(1, int(size))
     return num
-def value(size, num):
-    val = []
-    for i in range(num):
-        val.append(d(size))
-    return sum(val)
 def sd(size, num):
+    def value(size, num):
+        val = []
+        for i in range(num):
+            val.append(d(size))
+        return sum(val)
     msg = str(val) + ' = ' + str(sum(val))
     return msg
 
