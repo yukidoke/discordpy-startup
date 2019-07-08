@@ -17,24 +17,22 @@ async def swds(ctx):
 
 #諸々の定義
 a = random.randint(1,6)
-def d(size):
-    num = random.randint(1, int(size))
-    return num
-def sd(size, num):
-    def value(size, num):
-        val = []
-        for i in range(num):
-            val.append(d(size))
-        return sum(val)
-    msg = str(val) + ' = ' + str(sum(val))
+def dice(face):
+    count = random.randint(1, int(face))
+    return count
+def simple_dice(face, count):
+    dice_val = []
+    for i in range(count):
+        dice_val.append(dice(face))
+    msg = str(dice_val) + ' = ' + str(sum(dice_val))
     return msg
 
-#ダイスを振るコマンド
+#1個だけ6面ダイスを振るコマンド
 @bot.command()
 async def sr(ctx):
     if bot.user != ctx.author:
         await ctx.send(f'{a}')
-
+#たくさんダイスを振るコマンド
 @bot.command()
 async def r(ctx):
     print("content: ", ctx.message.content)
@@ -42,23 +40,24 @@ async def r(ctx):
         info = parse('-r {}{}{}{}', ctx.message.content)
         print("info:", info)
         if info is None:
-            num = 2
-            size = 6
-            await ctx.send(f'{sd(size, num)}')
+            count = 2
+            face = 6
+            await ctx.send(f'{simple_dice(face, count)}')
         elif info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
-            num = int(info[0])
-            size = int(info[2])
-            await ctx.send(f'「{info[3]}」 {sd(size, num)}')
+            count = int(info[0])
+            face = int(info[2])
+            await ctx.send(f'「{info[3]}」 {simple_dice(face, count)}')
         else:
-            num = 2
-            size = 6
-            await ctx.send(f'{sd(size, num)}')
+            count = 2
+            face = 6
+            await ctx.send(f'{simple_dice(face, count)}')
 
 #ダメージ計算
 #@bot.command()
 #async def dmg(ctx,arg):
+#    if 
 #    [int(arg)][]
-#    await ctx.send(f'{sd(size, num)}')
+#    await ctx.send(f'{simple_dice(face, count)}')
 
 
 bot.run(token)
