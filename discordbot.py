@@ -7,9 +7,6 @@ import random
 bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
 
-
-
-
 #概要を説明するコマンド
 @bot.command()
 async def swds(ctx):
@@ -56,15 +53,5 @@ async def r(ctx):
 #            await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
 #        else:
 #            await ctx.send(f'{a} + {b} = {c}')
-
-@bot.command()
-async def r(ctx):
-    if c == 2:
-        await ctx.send(f'{a} + {b} = {c} fumble...')
-    elif c == 12:
-        await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
-    else:
-        await ctx.send(f'{a} + {b} = {c}')
-
 
 bot.run(token)
