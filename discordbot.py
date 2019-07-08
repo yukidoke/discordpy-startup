@@ -28,10 +28,10 @@ def dice_value(face, count):
     return sum(dice_val)
 
 def simple_dice(face, count):
-    dice_value = []
+    dice_val2 = []
     for i in range(count):
-        dice_value.append(dice(face))
-    msg = str(dice_value) + ' = ' + str(dice_value(face,count))
+        dice_val2.append(dice(face))
+    msg = str(dice_val2) + ' = ' + str(dice_value(face,count))
     return msg
 
 #1個だけ6面ダイスを振るコマンド
