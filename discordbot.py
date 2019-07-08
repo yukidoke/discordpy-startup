@@ -10,21 +10,21 @@ token = os.environ['DISCORD_BOT_TOKEN']
 #概要を説明するコマンド
 @bot.command()
 async def swds(ctx):
-    await ctx.send('''Sword World Diceroll System
+    await ctx.send('''Sword World droll System
     略称SWDSです。ソーズ(Swords)とお呼び下さい。
     '-r'で2d6を振ります。'-sr'で1d6を振ります。
     '-r'の後にnをダイスの数、Nを面の数として'-r ndN'として頂ければ、そのようにダイスを振ります。''')
 
 a = random.randint(1,6)
 
-def dice(dice_size):
-    num = random.randint(1, int(dice_size))
+def d(size):
+    num = random.randint(1, int(size))
     return num
-def simple_dice(dice_size, dice_num):
-    dice_val = []
-    for i in range(dice_num):
-        dice_val.append(dice(dice_size))
-    msg = str(dice_val) + ' = ' + str(sum(dice_val))
+def sd(size, num):
+    val = []
+    for i in range(num):
+        val.append(d(size))
+    msg = str(val) + ' = ' + str(sum(val))
     return msg
 
 #ダイスを振るコマンド
@@ -40,16 +40,16 @@ async def r(ctx):
         info = parse('-r {}{}{}{}', ctx.message.content)
         print("info:", info)
         if info is None:
-            dice_num = 2
-            dice_size = 6
-            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+            num = 2
+            size = 6
+            await ctx.send(f'{sd(size, num)}')
         elif info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
-            dice_num = int(info[0])
-            dice_size = int(info[2])
-            await ctx.send(f'「{info[3]}」 {simple_dice(dice_size, dice_num)}')
+            num = int(info[0])
+            size = int(info[2])
+            await ctx.send(f'「{info[3]}」 {sd(size, num)}')
         else:
-            dice_num = 2
-            dice_size = 6
-            await ctx.send(f'「{info[0]}{info[1]}{info[2]}{info[3]}」 {simple_dice(dice_size, dice_num)}')
+            num = 2
+            size = 6
+            await ctx.send(f'「{info[0]}{info[1]}{info[2]}{info[3]}」 {sd(size, num)}')
 
 bot.run(token)
