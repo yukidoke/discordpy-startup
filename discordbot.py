@@ -63,8 +63,11 @@ async def r(ctx):
 async def dmg(ctx,arg):
     if arg.isdecimal():
         score = dice_value(6, 2)
+        if dice_value(6, 2) == 2:
+            await ctx.send(f'出目：{score} fumble...')
+        else:
         damage = damage_table[int(arg)][score]
-    await ctx.send(f'出目：{(score))} 「{damage}」点のダメージ')
+    await ctx.send(f'出目：{score} 「{damage}」点のダメージ')
 
 
 bot.run(token)
