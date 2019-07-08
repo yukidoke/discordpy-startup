@@ -46,7 +46,7 @@ async def r(ctx):
     if info[1].isdecimal() and info[0].isdecimal():
         dice_num = int(info[0])
         dice_size = int(info[1])
-        await ctx.send(f'{msg}')
+        await ctx.send(f'{simple_dice(dice_size, dice_num)}')
     else:
         if c == 2:
             await ctx.send(f'{a} + {b} = {c} fumble...')
