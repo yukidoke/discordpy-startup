@@ -44,13 +44,13 @@ async def r(ctx):
             dice_num = 2
             dice_size = 6
             await ctx.send(f'{simple_dice(dice_size, dice_num)}')
-    elif info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
-        dice_num = int(info[0])
-        dice_size = int(info[2])
-        await ctx.send(f'{simple_dice(dice_size, dice_num)}')
-    else:
-        dice_num = 2
-        dice_size = 6
-        await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+        elif info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
+            dice_num = int(info[0])
+            dice_size = int(info[2])
+            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+        else:
+            dice_num = 2
+            dice_size = 6
+            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
 
 bot.run(token)
