@@ -36,12 +36,13 @@ def simple_dice(dice_size, dice_num):
 #ダイスを振るコマンド
 @bot.command()
 async def sr(ctx):
-    await ctx.send(f'{a}')
+    if bot.user != ctx.author:
+        await ctx.send(f'{a}')
 
 @bot.command()
 async def r(ctx):
     if bot.user != ctx.author:
-        info = parse('r {}d{}', ctx.message.content)
+        info = parse('-r {}d{}', ctx.message.content)
     if info[1].isdecimal() and info[0].isdecimal():
         dice_num = int(info[0])
         dice_size = int(info[1])
