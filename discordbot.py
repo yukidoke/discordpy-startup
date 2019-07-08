@@ -25,7 +25,7 @@ def simple_dice(dice_size, dice_num):
     dice_val = []
     for i in range(dice_num):
         dice_val.append(dice(dice_size))
-    msg = str(dice_val) + ' = ' + str(sum(dice_val)) 
+    msg = str(dice_val) + ' = ' + str(sum(dice_val))
     return msg
 
 #ダイスを振るコマンド
@@ -36,31 +36,20 @@ async def sr(ctx):
 
 @bot.command()
 async def r(ctx):
-    print("content: ", ctx.message.content)
     if bot.user != ctx.author:
         info = parse('-r {}{}{}', ctx.message.content)
         if info is None:
             dice_num = 2
             dice_size = 6
-            if sum(dice_val) == 2:
-                await ctx.send(f'{simple_dice(dice_size, dice_num)} fumble...')
-            elif sum(dice_val) == 12:
-                await ctx.send(f'{simple_dice(dice_size, dice_num)} CRITICAL!!')
-            else:
-                await ctx.send(f'{simple_dice(dice_size, dice_num)}')
-        print("info:", info)
-    if info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
+            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+
+    elif info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
         dice_num = int(info[0])
         dice_size = int(info[2])
         await ctx.send(f'{simple_dice(dice_size, dice_num)}')
     else:
         dice_num = 2
         dice_size = 6
-        if sum(dice_val) == 2:
-            await ctx.send(f'{simple_dice(dice_size, dice_num)} fumble...')
-        elif sum(dice_val) == 12:
-            await ctx.send(f'{simple_dice(dice_size, dice_num)} CRITICAL!!')
-        else:
-            await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+        await ctx.send(f'{simple_dice(dice_size, dice_num)}')
 
 bot.run(token)
