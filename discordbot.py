@@ -39,7 +39,7 @@ async def r(ctx):
     print("content: ", ctx.message.content)
     if bot.user != ctx.author:
         info = parse('-r {}{}{}', ctx.message.content)
-        if info is None
+        if info is None:
             dice_num = 2
             dice_size = 6
                 if sum(dice_val) == 2:
