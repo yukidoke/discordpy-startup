@@ -41,7 +41,7 @@ async def sr(ctx):
 @bot.command()
 async def r(ctx):
     if bot.user != ctx.author:
-        info = parse('r {}d{}', ctx)
+        info = parse('r {}d{}', ctx.message.content)
     if info[1].isdecimal() and info[0].isdecimal():
         dice_num = int(info[0])
         dice_size = int(info[1])
