@@ -41,21 +41,22 @@ async def sr(ctx):
 async def r(ctx):
     print("content: ", ctx.message.content)
     if bot.user != ctx.author:
-        info = parse('-r {}{}{}', ctx.message.content)
-        print("info:", info)
-    if info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
-        dice_num = int(info[0])
-        dice_size = int(info[2])
-        await ctx.send(f'{simple_dice(dice_size, dice_num)}')
-    else:
-        dice_num = 2
-        dice_size = 6
-#        if c == 2:
-#            await ctx.send(f'{a} + {b} = {c} fumble...')
-#        elif c == 12:
-#            await ctx.send(f'{a} + {b} = {c} CRITICAL!!')
-#        else:
-#            await ctx.send(f'{a} + {b} = {c}')
+        if ctx.message.content == '-r'
+            dice_num = 2
+            dice_size = 6
+                if sum(dice_val) == 2:
+                    await ctx.send(f'{simple_dice(dice_size, dice_num)} fumble...')
+                elif sum(dice_val) == 12:
+                    await ctx.send(f'{simple_dice(dice_size, dice_num)} CRITICAL!!')
+                else:
+                    await ctx.send(f'{simple_dice(dice_size, dice_num)}')
+        else:
+            info = parse('-r {}{}{}', ctx.message.content)
+            print("info:", info)
+            if info[0].isdecimal() and info[1] == 'd' and info[2].isdecimal():
+                dice_num = int(info[0])
+                dice_size = int(info[2])
+                await ctx.send(f'{simple_dice(dice_size, dice_num)}')
 
 
 bot.run(token)
