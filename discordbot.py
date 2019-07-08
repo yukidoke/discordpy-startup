@@ -40,7 +40,8 @@ async def sr(ctx):
 @bot.command()
 async def r(ctx):
     if bot.user != ctx.author:
-        if ctx.message == '-r'
+        text = ctx.message.content
+        if text == '-r'
             dice_num = 2
             dice_size = 6
                 if sum(dice_val) == 2:
