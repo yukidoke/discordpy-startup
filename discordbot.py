@@ -15,15 +15,17 @@ async def swds(ctx):
     '-r'で2d6を振ります。'-sr'で1d6を振ります。
     '-r'の後にnをダイスの数、Nを面の数として'-r ndN'として頂ければ、そのようにダイスを振ります。''')
 
+#諸々の定義
 a = random.randint(1,6)
-
 def d(size):
     num = random.randint(1, int(size))
     return num
-def sd(size, num):
+def value(size, num)
     val = []
     for i in range(num):
         val.append(d(size))
+    return sum(val)
+def sd():
     msg = str(val) + ' = ' + str(sum(val))
     return msg
 
@@ -50,6 +52,13 @@ async def r(ctx):
         else:
             num = 2
             size = 6
-            await ctx.send(f'「{info[0]}{info[1]}{info[2]}{info[3]}」 {sd(size, num)}')
+            await ctx.send(f'{sd(size, num)}')
+
+#ダメージ計算
+#@bot.command()
+#async def dmg(ctx,arg):
+#    [int(arg)][]
+#    await ctx.send(f'{sd(size, num)}')
+
 
 bot.run(token)
