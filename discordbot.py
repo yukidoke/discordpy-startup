@@ -33,9 +33,7 @@ async def r(ctx):
         info = parse('-r {}{}{}', ctx.message.content)
         print("info:", info)
         if info is None:
-            count = 2
-            face = 6
-            pips = [random.randint(1, face) for _ in range(count)]
+            pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
             await ctx.send(f'{pips} = {sum_pips}')
         elif info[0].isdecimal() and info[2].isdecimal():
@@ -45,9 +43,7 @@ async def r(ctx):
             sum_pips = sum(pips)
             await ctx.send(f'{pips} = {sum_pips}')
         else:
-            count = 2
-            face = 6
-            pips = [random.randint(1, face) for _ in range(count)]
+            pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
             await ctx.send(f'{pips} = {sum_pips}')
 
@@ -55,9 +51,7 @@ async def r(ctx):
 @bot.command()
 async def dmg(ctx,arg):
     if arg.isdecimal():
-        count = 2
-        face = 6
-        pips = [random.randint(1, face) for _ in range(count)]
+        pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
         if sum_pips == 2:
             await ctx.send(f'{pips} = {sum_pips} fumble...')
@@ -65,5 +59,14 @@ async def dmg(ctx,arg):
             damage = damage_table[int(arg)][sum_pips]
             await ctx.send(f'{pips} = {sum_pips} 「{damage}」点のダメージ')
 
+@bot.command()
+async def q(ctx):
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    if sum_pips == 2:
+        await ctx.send(f'救命草を使用：{pips} = {sum_pips} fumble...')
+    else:
+        damage = damage_table[20][sum_pips]
+        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 「{damage}」点のHPを回復')
 
 bot.run(token)
