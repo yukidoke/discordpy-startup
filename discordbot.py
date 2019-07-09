@@ -64,9 +64,20 @@ async def q(ctx):
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
-        await ctx.send(f'救命草を使用：{pips} = {sum_pips} fumble...')
+        await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[20][sum_pips]
-        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 「{damage}」点のHPを回復')
+        await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
 
+@bot.command()
+async def m(ctx):
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    if sum_pips == 2:
+        await ctx.send(f'MPを威力0で回復：{pips} = {sum_pips} fumble...')
+    else:
+        damage = damage_table[0][sum_pips]
+        await ctx.send(f'MPを威力0で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+
+        
 bot.run(token)
