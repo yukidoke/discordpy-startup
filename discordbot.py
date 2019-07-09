@@ -34,18 +34,24 @@ async def sr(ctx):
 async def r(ctx):
     print("content: ", ctx.message.content)
     if bot.user != ctx.author:
-        info = parse('-r {}{}{}', ctx.message.content)
+        info = parse('-r {}{}{}{}', ctx.message.content)
         print("info:", info)
         if info is None:
-            pips = [random.randint(1, 6) for _ in range(2)]
-            sum_pips = sum(pips)
-            await ctx.send(f'{pips} = {sum_pips}')
-        elif info[0].isdecimal() and info[2].isdecimal():
-            count = int(info[0])
-            face = int(info[2])
-            pips = [random.randint(1, face) for _ in range(count)]
-            sum_pips = sum(pips)
-            await ctx.send(f'{pips} = {sum_pips}')
+            info2 = parse('-r {}{}{}', ctx.message.content)
+            if info2 is None:
+                pips = [random.randint(1, 6) for _ in range(2)]
+                sum_pips = sum(pips)
+                await ctx.send(f'{pips} = {sum_pips}')
+            elif info2[0].isdecimal() and info2[2].isdecimal():
+                count = int(info[0])
+                face = int(info[2])
+                pips = [random.randint(1, face) for _ in range(count)]
+                sum_pips = sum(pips)
+                await ctx.send(f'{pips} = {sum_pips}')
+            else:
+                pips = [random.randint(1, 6) for _ in range(2)]
+                sum_pips = sum(pips)
+                await ctx.send(f'{pips} = {sum_pips}')
         else:
             pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
@@ -82,7 +88,7 @@ async def h(ctx):
     else:
         damage = damage_table[20][sum_pips]
         await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
-        
+
 @bot.command()
 async def m(ctx):
     pips = [random.randint(1, 6) for _ in range(2)]
@@ -109,6 +115,6 @@ async def cw(ctx):
         else:
             damage = damage_table[10][sum_pips2]
             await ctx.send(f'HPを威力10で回復：{pips2} = {sum_pips2} 基礎回復量：「{damage}」点')
-            
-            
+
+
 bot.run(token)
