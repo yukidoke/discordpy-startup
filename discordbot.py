@@ -88,13 +88,13 @@ async def cw(ctx):
     else:
         damage = damage_table[20][sum_pips]
         await ctx.send(f'【キュア・ウーンズ】を行使：{pips} = {sum_pips} 行使成功')
-        pips2 = [random.randint(1, 6) for _ in range(2)]
+        pips2 = [random.randint(1, 6) for _2 in range(2)]
         sum_pips2 = sum(pips2)
         if sum_pips == 2:
-            await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} fumble...')
+            await ctx.send(f'HPを威力10で回復：{pips2} = {sum_pips2} fumble...')
         else:
             damage = damage_table[10][sum_pips2]
-            await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+            await ctx.send(f'HPを威力10で回復：{pips2} = {sum_pips2} 基礎回復量：「{damage}」点')
             
             
 bot.run(token)
