@@ -34,17 +34,17 @@ async def sr(ctx):
 async def r(ctx):
     print("content: ", ctx.message.content)
     if bot.user != ctx.author:
-        info = parse('-r {:d}d{:d}{}', ctx.message.content)
+        info = parse('-r {}d{}{}', ctx.message.content)
         print("info:", info)
         if info is None:
-            info2 = parse('-r {:d}d{:d}', ctx.message.content)
+            info2 = parse('-r {}d{}', ctx.message.content)
             if info2 is None:
                 pips = [random.randint(1, 6) for _ in range(2)]
                 sum_pips = sum(pips)
                 await ctx.send(f'{pips} = {sum_pips}')
-            elif:
+            elif info2[0].isdecimal() and info2[1].isdecimal():
                 count = int(info[0])
-                face = int(info[2])
+                face = int(info[1])
                 pips = [random.randint(1, face) for _ in range(count)]
                 sum_pips = sum(pips)
                 await ctx.send(f'{pips} = {sum_pips}')
