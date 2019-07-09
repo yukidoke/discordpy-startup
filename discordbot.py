@@ -42,7 +42,7 @@ async def r(ctx):
                 pips = [random.randint(1, 6) for _ in range(2)]
                 sum_pips = sum(pips)
                 await ctx.send(f'{pips} = {sum_pips}')
-            elif info2[0].isdecimal() and info2[2].isdecimal():
+            elif:
                 count = int(info[0])
                 face = int(info[2])
                 pips = [random.randint(1, face) for _ in range(count)]
