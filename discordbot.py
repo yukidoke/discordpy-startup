@@ -79,5 +79,22 @@ async def m(ctx):
         damage = damage_table[0][sum_pips]
         await ctx.send(f'MPを威力0で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
 
-        
+@bot.command()
+async def cw(ctx):
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    if sum_pips == 2:
+        await ctx.send(f'【キュア・ウーンズ】を行使：{pips} = {sum_pips} fumble...')
+    else:
+        damage = damage_table[20][sum_pips]
+        await ctx.send(f'【キュア・ウーンズ】を行使：{pips} = {sum_pips} 行使成功')
+        pips2 = [random.randint(1, 6) for _ in range(2)]
+        sum_pips2 = sum(pips2)
+        if sum_pips == 2:
+            await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} fumble...')
+        else:
+            damage = damage_table[10][sum_pips2]
+            await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+            
+            
 bot.run(token)
