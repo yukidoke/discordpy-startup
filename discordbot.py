@@ -15,8 +15,9 @@ async def swds(ctx):
     '-r'で2d6を振ります。'-sr'で1d6を振ります。
     nをダイスの数、Nを面の数として、'-r ndN'で指定された通りにダイスを振ります。
     nを0から80までの整数として、'-dmg n'で威力表nのダメージを算出します。
-    よく使われるであろうアイテムは別のコマンドで代替できます。
-    '-q'で救命草を使用します。'-m'で魔香草・魔香水を使用します。
+    よく使われるであろうアイテムや魔法は別のコマンドで代替できます。
+    '-q'で＜救命草＞を使用します。'-m'で＜魔香草＞・＜魔香水＞を使用します。
+    '-h'で＜ヒーリングポーション＞を使用します。
     '-cw'で【キュア・ウーンズ】を行使します。''')
 
 #諸々の定義
@@ -67,11 +68,21 @@ async def q(ctx):
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
+        await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} fumble...')
+    else:
+        damage = damage_table[10][sum_pips]
+        await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+
+@bot.command()
+async def h(ctx):
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    if sum_pips == 2:
         await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[20][sum_pips]
         await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
-
+        
 @bot.command()
 async def m(ctx):
     pips = [random.randint(1, 6) for _ in range(2)]
