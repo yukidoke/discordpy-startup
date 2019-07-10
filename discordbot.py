@@ -71,7 +71,33 @@ async def r(ctx, *args):
 #ダメージ計算
 @bot.command()
 async def dmg(ctx,*args):
-    if len(args) == 1 and args[0].isdecimal():
+    if len(args) == 2 and args[0].isdecimal() and args[1].isdecimal():
+        pips = [random.randint(1, 6) for _ in range(2)]
+        sum_pips = sum(pips)
+        fixed_pips = sum_pips + int(args[1])
+        if fixed_pips >= 13
+            fixed_pips = 12
+        else:
+            pass
+        if sum_pips == 2:
+            await ctx.send(f'{pips} = {sum_pips} fumble...')
+        else:
+            damage = damage_table[int(args[0])][fixed_pips]
+            await ctx.send(f'{pips} = {sum_pips} 出目補正+{args[1]} 威力表{args[0]}で「{damage}」点のダメージ')
+    elif len(args) == 3 and args[0].isdecimal() and args[1].isdecimal():
+        pips = [random.randint(1, 6) for _ in range(2)]
+        sum_pips = sum(pips)
+        fixed_pips = sum_pips + int(args[1])
+        if fixed_pips >= 13
+            fixed_pips = 12
+        else:
+            pass
+        if sum_pips == 2:
+            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
+        else:
+            damage = damage_table[int(args[0])][fixed_pips]
+            await ctx.send(f'「{args[2]}」 {pips} = {sum_pips} 出目補正+{args[1]} 威力表{args[0]}で「{damage}」点のダメージ')
+    elif len(args) == 1 and args[0].isdecimal():
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
         if sum_pips == 2:
