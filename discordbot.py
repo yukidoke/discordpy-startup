@@ -31,25 +31,26 @@ async def sr(ctx):
         await ctx.send(f'{a}')
 #たくさんダイスを振るコマンド
 @bot.command()
-async def r(ctx, dice = 'default': str, serif = 'default': str):
-    print('dice: ', dice)
-    print('serif: ', serif)
+async def r(ctx, *args):
+    print('args: ', args)
     if bot.user != ctx.author:
-        if dice == 'default' and serif == 'default':
+        if len(args) == 0:
             pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
             await ctx.send(f'{pips} = {sum_pips}')
-        elif serif == 'default':
+        elif len(args) == 1:
             pips = [random.randint(1,6) for _ in range(2)]
             sum_pips = sum(pips)
-            await ctx.send(f'「{dice}」 {pips} = {sum_pips}')
-        else:
-            splited_dice = dice.split('d')
+            await ctx.send(f'「{args[0]}」 {pips} = {sum_pips}')
+        elif len(args) == 2:
+            splited_dice = args[0].split('d')
             count = int(splited_dice[0])
             face = int(splited_dice[1])
             pips = [random.randint(1, face) for _ in range(count)]
             sum_pips = sum(pips)
-            await ctx.send(f'「{serif}」 {pips} = {sum_pips}')
+            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips}')
+        else:
+            await ctx.send('ERROR:「-r ndN comment」の形式でお願いします。')
 
 #ダメージ計算
 @bot.command()
