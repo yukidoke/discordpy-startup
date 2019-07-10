@@ -31,15 +31,15 @@ async def sr(ctx):
         await ctx.send(f'{a}')
 #たくさんダイスを振るコマンド
 @bot.command()
-async def r(ctx, dice = None: str, serif = None: str):
+async def r(ctx, dice = 'default': str, serif = 'default': str):
     print('dice: ', dice)
     print('serif: ', serif)
     if bot.user != ctx.author:
-        if dice is None and serif is None:
+        if dice == 'default' and serif == 'default':
             pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
             await ctx.send(f'{pips} = {sum_pips}')
-        elif serif is None:
+        elif serif == 'default':
             pips = [random.randint(1,6) for _ in range(2)]
             sum_pips = sum(pips)
             await ctx.send(f'「{dice}」 {pips} = {sum_pips}')
