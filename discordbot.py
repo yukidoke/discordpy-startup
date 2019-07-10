@@ -31,31 +31,25 @@ async def sr(ctx):
         await ctx.send(f'{a}')
 #たくさんダイスを振るコマンド
 @bot.command()
-async def r(ctx):
-    print("content: ", ctx.message.content)
+async def r(ctx, dice: str, serif: str):
+    print('dice: ', dice)
+    print('serif: ', serif)
     if bot.user != ctx.author:
-        info = parse('-r {}d{}{}', ctx.message.content)
-        print("info:", info)
-        if info is None:
-            info2 = parse('-r {}d{}', ctx.message.content)
-            if info2 is None:
-                pips = [random.randint(1, 6) for _ in range(2)]
-                sum_pips = sum(pips)
-                await ctx.send(f'{pips} = {sum_pips}')
-            elif info2[0].isdecimal() and info2[1].isdecimal():
-                count = int(info[0])
-                face = int(info[1])
-                pips = [random.randint(1, face) for _ in range(count)]
-                sum_pips = sum(pips)
-                await ctx.send(f'{pips} = {sum_pips}')
-            else:
-                pips = [random.randint(1, 6) for _ in range(2)]
-                sum_pips = sum(pips)
-                await ctx.send(f'{pips} = {sum_pips}')
-        else:
+        if dice is None and serif is None:
             pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
             await ctx.send(f'{pips} = {sum_pips}')
+        elif serif is None:
+            pips = [random.randint(1,6) for _ in range(2)]
+            sum_pips = sum(pips)
+            await ctx.send(f'「{dice}」 {pips} = {sum_pips}')
+        else:
+            splited_dice = dice.split('d')
+            count = int(splited_dice[0])
+            face = int(splited_dice[1])
+            pips = [random.randint(1, face) for _ in range(count)]
+            sum_pips = sum(pips)
+            await ctx.send(f'「{serif}」 {pips} = {sum_pips}')
 
 #ダメージ計算
 @bot.command()
