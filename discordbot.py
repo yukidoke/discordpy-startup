@@ -75,7 +75,7 @@ async def dmg(ctx,*args):
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
         fixed_pips = sum_pips + int(args[1])
-        if fixed_pips >= 13
+        if fixed_pips >= 13:
             fixed_pips = 12
         else:
             pass
@@ -88,7 +88,7 @@ async def dmg(ctx,*args):
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
         fixed_pips = sum_pips + int(args[1])
-        if fixed_pips >= 13
+        if fixed_pips >= 13:
             fixed_pips = 12
         else:
             pass
