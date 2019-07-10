@@ -37,33 +37,58 @@ async def r(ctx, *args):
         if len(args) == 0:
             pips = [random.randint(1, 6) for _ in range(2)]
             sum_pips = sum(pips)
-            await ctx.send(f'{pips} = {sum_pips}')
+            if sum_pips == 2:
+                await ctx.send(f'{pips} = {sum_pips} fumble...')
+            elif sum_pips == 12:
+                await ctx.send(f'{pips} = {sum_pips} CRITICAL!!')
+            else:
+                await ctx.send(f'{pips} = {sum_pips}')
         elif len(args) == 1:
             pips = [random.randint(1,6) for _ in range(2)]
             sum_pips = sum(pips)
-            await ctx.send(f'「{args[0]}」 {pips} = {sum_pips}')
+            if sum_pips == 2:
+                await ctx.send(f'「{args[0]}」 {pips} = {sum_pips} fumble...')
+            elif sum_pips == 12:
+                await ctx.send(f'「{args[0]}」 {pips} = {sum_pips} CRITICAL!!')
+            else:
+                await ctx.send(f'「{args[0]}」 {pips} = {sum_pips}')
         elif len(args) == 2:
             splited_dice = args[0].split('d')
             count = int(splited_dice[0])
             face = int(splited_dice[1])
             pips = [random.randint(1, face) for _ in range(count)]
             sum_pips = sum(pips)
-            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips}')
+            if sum_pips == 2:
+                await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
+            elif sum_pips == 12:
+                await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} CRITICAL!!')
+            else:
+                await ctx.send(f'「{args[1]}」 {pips} = {sum_pips}')
         else:
             await ctx.send('ERROR:「-r ndN comment」の形式でお願いします。')
 
 #ダメージ計算
 @bot.command()
-async def dmg(ctx,arg):
-    if arg.isdecimal():
+async def dmg(ctx,*args):
+    if len(args) == 1 and args[0].isdecimal():
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
         if sum_pips == 2:
             await ctx.send(f'{pips} = {sum_pips} fumble...')
         else:
-            damage = damage_table[int(arg)][sum_pips]
+            damage = damage_table[int(args[0])][sum_pips]
             await ctx.send(f'{pips} = {sum_pips} 「{damage}」点のダメージ')
-
+    elif len(args) == 2 and args[0].isdecimal():
+        pips = [random.randint(1, 6) for _ in range(2)]
+        sum_pips = sum(pips)
+        if sum_pips == 2:
+            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
+        else:
+            damage = damage_table[int(args[0])][sum_pips]
+            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} 「{damage}」点のダメージ')
+    else:
+        await ctx.send('ERROR:威力が入力されていないか、commentにスペースがあります')
+#その他汎用コマンド
 @bot.command()
 async def q(ctx):
     pips = [random.randint(1, 6) for _ in range(2)]
