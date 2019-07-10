@@ -1,16 +1,10 @@
-import discord
 from discord.ext import commands
 import os
 import traceback
 import random
 
-client = discord.Client()
 bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
-
-@client.event
-async def on_ready():
-    print('剣の加護があらんことを。')
     
 #概要を説明するコマンド
 @bot.command()
