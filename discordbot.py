@@ -1,5 +1,4 @@
 from discord.ext import commands
-from parse import *
 import os
 import traceback
 import random
@@ -15,7 +14,9 @@ async def swds(ctx):
     '-r'で2d6を振ります。'-sr'で1d6を振ります。
     nをダイスの数、Nを面の数として、'-r ndN'で指定された通りにダイスを振ります。
     nを0から80までの整数として、'-dmg n'で威力表nのダメージを算出します。
-    よく使われるであろうアイテムや魔法は別のコマンドで代替できます。
+    上記のコマンドには末尾にセリフを入れることも出来ます。
+    例：'-r 5d6 名誉点決定'
+    また、よく使われるであろうアイテムや魔法は別のコマンドで代替できます。
     '-q'で＜救命草＞を使用します。'-m'で＜魔香草＞・＜魔香水＞を使用します。
     '-h'で＜ヒーリングポーション＞を使用します。
     '-cw'で【キュア・ウーンズ】を行使します。''')
@@ -77,7 +78,7 @@ async def dmg(ctx,*args):
             await ctx.send(f'{pips} = {sum_pips} fumble...')
         else:
             damage = damage_table[int(args[0])][sum_pips]
-            await ctx.send(f'{pips} = {sum_pips} 「{damage}」点のダメージ')
+            await ctx.send(f'{pips} = {sum_pips} 威力表{args[0]}で「{damage}」点のダメージ')
     elif len(args) == 2 and args[0].isdecimal():
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
@@ -85,9 +86,10 @@ async def dmg(ctx,*args):
             await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
         else:
             damage = damage_table[int(args[0])][sum_pips]
-            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} 「{damage}」点のダメージ')
+            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} 威力表{args[0]}で「{damage}」点のダメージ')
     else:
         await ctx.send('ERROR:威力が入力されていないか、commentにスペースがあります')
+        
 #その他汎用コマンド
 @bot.command()
 async def q(ctx):
