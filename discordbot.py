@@ -31,7 +31,7 @@ async def sr(ctx):
         await ctx.send(f'{a}')
 #たくさんダイスを振るコマンド
 @bot.command()
-async def r(ctx, dice: str, serif: str):
+async def r(ctx, dice = None: str, serif = None: str):
     print('dice: ', dice)
     print('serif: ', serif)
     if bot.user != ctx.author:
