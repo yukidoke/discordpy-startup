@@ -5,7 +5,7 @@ import random
 
 bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
-    
+
 #概要を説明するコマンド
 @bot.command()
 async def swds(ctx):
@@ -20,6 +20,7 @@ async def swds(ctx):
     また、よく使われるであろうアイテムや魔法は別のコマンドで代替できます。
     '-q'で＜救命草＞を使用します。'-m'で＜魔香草＞・＜魔香水＞を使用します。
     '-h'で＜ヒーリングポーション＞を使用します。
+    '-t'で＜トリートポーション＞を使用します。
     '-cw'で【キュア・ウーンズ】を行使します。''')
 
 #諸々の定義
@@ -116,7 +117,7 @@ async def dmg(ctx,*args):
             await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} 威力表{args[0]}で「{damage}」点のダメージ')
     else:
         await ctx.send('ERROR:威力が入力されていないか、commentにスペースがあります')
-        
+
 #その他汎用コマンド
 @bot.command()
 async def q(ctx):
@@ -137,6 +138,16 @@ async def h(ctx):
     else:
         damage = damage_table[20][sum_pips]
         await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+
+@bot.command()
+async def t(ctx):
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    if sum_pips == 2:
+        await ctx.send(f'HPを威力30で回復：{pips} = {sum_pips} fumble...')
+    else:
+        damage = damage_table[30][sum_pips]
+        await ctx.send(f'HPを威力30で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
 
 @bot.command()
 async def m(ctx):
