@@ -132,7 +132,7 @@ async def dmg(ctx,*args):
             damage = damage_table[int(args[0])][sum_pips]
             await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} 威力表{args[0]}で「{damage}」点のダメージ')
     else:
-        await ctx.send('ERROR:威力が入力されていないか、commentにスペースがあります')
+        await ctx.send('ERROR:威力が適切に入力されていないか、commentにスペースがあります')
 
 #経験点参照コマンド
 @bot.command()
@@ -141,7 +141,7 @@ async def exp(ctx, arg):
         level = int(arg)
         await ctx.send(f'技能Lv{level}への上昇に必要な経験点は {exp_table[level]} です。')
     else:
-        await ctx.send('ERROR:対象となるLvが入力されていないか、アラビア数字になっていません')
+        await ctx.send('ERROR:対象となるLvが適切に入力されていません')
 
 #行使判定
 @bot.command()
