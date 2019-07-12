@@ -125,7 +125,7 @@ async def dmg(ctx,*args):
 async def exp(ctx, arg):
     if arg.isdecimal():
         level = int(arg)
-        await ctx.send(f'Lv{level}への上昇に必要な経験点は {exp_table[level]} です。')
+        await ctx.send(f'技能Lv{level}への上昇に必要な経験点は {exp_table[level]} です。')
     else:
         await ctx.send('ERROR:対象となるLvが入力されていないか、アラビア数字になっていません')
 
