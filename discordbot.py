@@ -6,6 +6,8 @@ import random
 bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
 
+#既に使われているコマンド：r, sr, dmg, exp, q, m, h, t, cw
+
 #概要を説明するコマンド
 @bot.command()
 async def swds(ctx):
@@ -129,6 +131,24 @@ async def exp(ctx, arg):
     else:
         await ctx.send('ERROR:対象となるLvが入力されていないか、アラビア数字になっていません')
 
+#行使判定
+@bot.command()
+async def mp(ctx, arg):
+    if arg.isdecimal():
+        pips = [random.randint(1, 6) for _ in range(2)]
+        sum_pips = sum(pips)
+        if sum_pips == 2:
+            await ctx.send(f'行使判定：{pips} = {sum_pips} fumble...')
+        else:
+            await ctx.send(f'行使判定：{pips} = {sum_pips} 行使成功')
+            pips2 = [random.randint(1, 6) for _2 in range(2)]
+            sum_pips2 = sum(pips2)
+            if sum_pips == 2:
+                await ctx.send(f'{pips2} = {sum_pips2} fumble...')
+            else:
+                damage = damage_table[int(arg)][sum_pips]
+                await ctx.send(f'{pips2} = {sum_pips2} 威力表{arg}で「{damage}」点のダメージ')
+
 #その他汎用コマンド
 @bot.command()
 async def q(ctx):
@@ -177,7 +197,6 @@ async def cw(ctx):
     if sum_pips == 2:
         await ctx.send(f'【キュア・ウーンズ】を行使：{pips} = {sum_pips} fumble...')
     else:
-        damage = damage_table[20][sum_pips]
         await ctx.send(f'【キュア・ウーンズ】を行使：{pips} = {sum_pips} 行使成功')
         pips2 = [random.randint(1, 6) for _2 in range(2)]
         sum_pips2 = sum(pips2)
