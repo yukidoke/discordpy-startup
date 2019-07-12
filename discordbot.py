@@ -61,12 +61,7 @@ async def r(ctx, arg1 = 'dflt', arg2 = 'dflt'):
                 face = int(splited_dice[1])
                 pips = [random.randint(1, face) for _ in range(count)]
                 sum_pips = sum(pips)
-                if sum_pips == 2:
-                    await ctx.send(f'「{arg2}」 {pips} = {sum_pips} fumble...')
-                elif sum_pips == 12:
-                    await ctx.send(f'「{arg2}」 {pips} = {sum_pips} CRITICAL!!')
-                else:
-                    await ctx.send(f'「{arg2}」 {pips} = {sum_pips}')
+                await ctx.send(f'「{arg2}」 {pips} = {sum_pips}')
             else:
                 await ctx.send('ERROR:「-r ndN comment」の形式でお願いします。')
         elif arg2 == 'dflt':
@@ -88,11 +83,22 @@ async def r(ctx, arg1 = 'dflt', arg2 = 'dflt'):
 
 #ダメージ計算
 @bot.command()
-async def dmg(ctx,*args):
-    if len(args) == 2 and args[0].isdecimal() and args[1].isdecimal():
-        pips = [random.randint(1, 6) for _ in range(2)]
-        sum_pips = sum(pips)
-        fixed_pips = sum_pips + int(args[1])
+async def dmg(ctx, arg1 = 'dflt', arg2 = 'dflt', arg3 = 'dflt'):
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    if arg1.isdecimal() and arg2.isdecimal() and arg3 != 'dflt':
+        fixed_pips = sum_pips + int(arg2)
+        if fixed_pips >= 13:
+            fixed_pips = 12
+        else:
+            pass
+        if sum_pips == 2:
+            await ctx.send(f'「{arg3}」 {pips} = {sum_pips} fumble...')
+        else:
+            damage = damage_table[int(arg1)][fixed_pips]
+            await ctx.send(f'「{arg3}」 {pips} = {sum_pips} 出目補正+{arg2} 威力表{arg1}で「{damage}」点のダメージ')
+    elif arg1.isdecimal() and arg2.isdecimal() and arg3 == 'dflt':
+        fixed_pips = sum_pips + int(arg2)
         if fixed_pips >= 13:
             fixed_pips = 12
         else:
@@ -100,37 +106,20 @@ async def dmg(ctx,*args):
         if sum_pips == 2:
             await ctx.send(f'{pips} = {sum_pips} fumble...')
         else:
-            damage = damage_table[int(args[0])][fixed_pips]
-            await ctx.send(f'{pips} = {sum_pips} 出目補正+{args[1]} 威力表{args[0]}で「{damage}」点のダメージ')
-    elif len(args) == 3 and args[0].isdecimal() and args[1].isdecimal():
-        pips = [random.randint(1, 6) for _ in range(2)]
-        sum_pips = sum(pips)
-        fixed_pips = sum_pips + int(args[1])
-        if fixed_pips >= 13:
-            fixed_pips = 12
-        else:
-            pass
+            damage = damage_table[int(arg1)][fixed_pips]
+            await ctx.send(f'{pips} = {sum_pips} 出目補正+{arg2} 威力表{arg1}で「{damage}」点のダメージ')
+    elif arg1.isdecimal() and arg2 != 'dflt' and arg3 == 'dflt':
         if sum_pips == 2:
-            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
+            await ctx.send(f'「{arg2}」 {pips} = {sum_pips} fumble...')
         else:
-            damage = damage_table[int(args[0])][fixed_pips]
-            await ctx.send(f'「{args[2]}」 {pips} = {sum_pips} 出目補正+{args[1]} 威力表{args[0]}で「{damage}」点のダメージ')
-    elif len(args) == 1 and args[0].isdecimal():
-        pips = [random.randint(1, 6) for _ in range(2)]
-        sum_pips = sum(pips)
+            damage = damage_table[int(arg1)][sum_pips]
+            await ctx.send(f'「{arg2}」 {pips} = {sum_pips} 威力表{arg1}で「{damage}」点のダメージ')
+    elif arg1.isdecimal() and arg2 == 'dflt' and arg3 == 'dflt':
         if sum_pips == 2:
             await ctx.send(f'{pips} = {sum_pips} fumble...')
         else:
-            damage = damage_table[int(args[0])][sum_pips]
-            await ctx.send(f'{pips} = {sum_pips} 威力表{args[0]}で「{damage}」点のダメージ')
-    elif len(args) == 2 and args[0].isdecimal():
-        pips = [random.randint(1, 6) for _ in range(2)]
-        sum_pips = sum(pips)
-        if sum_pips == 2:
-            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
-        else:
-            damage = damage_table[int(args[0])][sum_pips]
-            await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} 威力表{args[0]}で「{damage}」点のダメージ')
+            damage = damage_table[int(arg1)][sum_pips]
+            await ctx.send(f'{pips} = {sum_pips} 威力表{arg1}で「{damage}」点のダメージ')
     else:
         await ctx.send('ERROR:威力が適切に入力されていないか、commentにスペースがあります')
 
