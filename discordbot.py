@@ -133,7 +133,7 @@ async def exp(ctx, arg):
 
 #行使判定
 @bot.command()
-async def mp(ctx, arg):
+async def mp(ctx, arg='default'):
     if arg.isdecimal():
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
