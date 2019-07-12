@@ -50,39 +50,39 @@ async def sr(ctx):
         await ctx.send(f'{a}')
 #たくさんダイスを振るコマンド
 @bot.command()
-async def r(ctx, *args):
-    print('args: ', args)
+async def r(ctx, arg1 = 'dflt', arg2 = 'dflt'):
     if bot.user != ctx.author:
-        if len(args) == 0:
-            pips = [random.randint(1, 6) for _ in range(2)]
-            sum_pips = sum(pips)
+        pips = [random.randint(1, 6) for _ in range(2)]
+        sum_pips = sum(pips)
+        if arg1 != 'dflt' and arg2 != 'dflt':
+            splited_dice = arg1.split('d')
+            if len(splited_dice) == 2:
+                count = int(splited_dice[0])
+                face = int(splited_dice[1])
+                pips = [random.randint(1, face) for _ in range(count)]
+                sum_pips = sum(pips)
+                if sum_pips == 2:
+                    await ctx.send(f'「{arg2}」 {pips} = {sum_pips} fumble...')
+                elif sum_pips == 12:
+                    await ctx.send(f'「{arg2}」 {pips} = {sum_pips} CRITICAL!!')
+                else:
+                    await ctx.send(f'「{arg2}」 {pips} = {sum_pips}')
+            else:
+                await ctx.send('ERROR:「-r ndN comment」の形式でお願いします。')
+        elif arg2 == 'dflt':
+            if sum_pips == 2:
+                await ctx.send(f'「{arg1}」 {pips} = {sum_pips} fumble...')
+            elif sum_pips == 12:
+                await ctx.send(f'「{arg1}」 {pips} = {sum_pips} CRITICAL!!')
+            else:
+                await ctx.send(f'「{arg1}」 {pips} = {sum_pips}')
+        elif arg1 == 'dflt' and arg2 == 'dflt':
             if sum_pips == 2:
                 await ctx.send(f'{pips} = {sum_pips} fumble...')
             elif sum_pips == 12:
                 await ctx.send(f'{pips} = {sum_pips} CRITICAL!!')
             else:
                 await ctx.send(f'{pips} = {sum_pips}')
-        elif len(args) == 1:
-            pips = [random.randint(1,6) for _ in range(2)]
-            sum_pips = sum(pips)
-            if sum_pips == 2:
-                await ctx.send(f'「{args[0]}」 {pips} = {sum_pips} fumble...')
-            elif sum_pips == 12:
-                await ctx.send(f'「{args[0]}」 {pips} = {sum_pips} CRITICAL!!')
-            else:
-                await ctx.send(f'「{args[0]}」 {pips} = {sum_pips}')
-        elif len(args) == 2:
-            splited_dice = args[0].split('d')
-            count = int(splited_dice[0])
-            face = int(splited_dice[1])
-            pips = [random.randint(1, face) for _ in range(count)]
-            sum_pips = sum(pips)
-            if sum_pips == 2:
-                await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} fumble...')
-            elif sum_pips == 12:
-                await ctx.send(f'「{args[1]}」 {pips} = {sum_pips} CRITICAL!!')
-            else:
-                await ctx.send(f'「{args[1]}」 {pips} = {sum_pips}')
         else:
             await ctx.send('ERROR:「-r ndN comment」の形式でお願いします。')
 
