@@ -13,9 +13,9 @@ token = os.environ['DISCORD_BOT_TOKEN']
 async def swds(ctx):
     await ctx.send('''Sword World Diceroll System
     略称SWDSです。ソーズ(Swords)とお呼び下さい。
-    '-r'で2d6を振ります。'-sr'で1d6を振ります。
-    ダイスロールに関する詳細は'-dice'
-    その他のコマンドに関する詳細は'-cmds'で参照できます。''')
+    `-r`で2d6を振ります。`-sr`で1d6を振ります。
+    ダイスロールに関する詳細は`-dice`
+    その他のコマンドに関する詳細は`-cmds`で参照できます。''')
 
 @bot.command()
 async def dice(ctx):
