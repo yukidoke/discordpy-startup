@@ -148,6 +148,13 @@ async def mp(ctx, arg):
             else:
                 damage = damage_table[int(arg)][sum_pips]
                 await ctx.send(f'{pips2} = {sum_pips2} 威力表{arg}で「{damage}」点のダメージ')
+    else:
+        pips = [random.randint(1, 6) for _ in range(2)]
+        sum_pips = sum(pips)
+        if sum_pips == 2:
+            await ctx.send(f'行使判定：{pips} = {sum_pips} fumble...')
+        else:
+            await ctx.send(f'行使判定：{pips} = {sum_pips} 行使成功')
 
 #その他汎用コマンド
 @bot.command()
