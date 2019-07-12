@@ -64,13 +64,21 @@ async def r(ctx, arg1 = 'dflt', arg2 = 'dflt'):
                 await ctx.send(f'「{arg2}」 {pips} = {sum_pips}')
             else:
                 await ctx.send('ERROR:「-r ndN comment」の形式でお願いします。')
-        elif arg2 == 'dflt':
-            if sum_pips == 2:
-                await ctx.send(f'「{arg1}」 {pips} = {sum_pips} fumble...')
-            elif sum_pips == 12:
-                await ctx.send(f'「{arg1}」 {pips} = {sum_pips} CRITICAL!!')
+        elif arg1 != 'dflt' and arg2 == 'dflt':
+            splited_dice = arg1.split('d')
+            if len(splited_dice) == 2:
+                count = int(splited_dice[0])
+                face = int(splited_dice[1])
+                pips = [random.randint(1, face) for _ in range(count)]
+                sum_pips = sum(pips)
+                await ctx.send(f'「{arg2}」 {pips} = {sum_pips}')
             else:
-                await ctx.send(f'「{arg1}」 {pips} = {sum_pips}')
+                if sum_pips == 2:
+                    await ctx.send(f'「{arg1}」 {pips} = {sum_pips} fumble...')
+                elif sum_pips == 12:
+                    await ctx.send(f'「{arg1}」 {pips} = {sum_pips} CRITICAL!!')
+                else:
+                    await ctx.send(f'「{arg1}」 {pips} = {sum_pips}')
         elif arg1 == 'dflt' and arg2 == 'dflt':
             if sum_pips == 2:
                 await ctx.send(f'{pips} = {sum_pips} fumble...')
