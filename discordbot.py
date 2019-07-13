@@ -129,7 +129,7 @@ async def dmg(ctx, arg1 = 'dflt', arg2 = 'dflt', arg3 = 'dflt'):
             damage = damage_table[int(arg1)][sum_pips]
             await ctx.send(f'{pips} = {sum_pips} 威力表{arg1}で「{damage}」点のダメージ')
     else:
-        await ctx.send('ERROR:威力が適切に入力されていないか、commentにスペースがあります')
+        await ctx.send('ERROR:威力が適切に入力されていません')
 
 #経験点参照コマンド
 @bot.command()
