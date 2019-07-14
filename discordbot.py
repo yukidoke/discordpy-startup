@@ -17,6 +17,11 @@ async def swds(ctx):
     ダイスロールに関する詳細は`-dice`
     その他のコマンドに関する詳細は`-cmds`で参照できます。''')
 
+#行為判定
+@bot.command()
+async def try(ctx):
+    await ctx.send(ctx.author)
+
 @bot.command()
 async def dice(ctx):
     await ctx.send('''【ダイスロール関係について】
