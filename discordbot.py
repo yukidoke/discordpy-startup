@@ -226,7 +226,7 @@ async def cw(ctx):
 #行為判定
 @bot.command()
 async def c(ctx):
-    await ctx.send('{ctx.author}')
+    await ctx.send(f'{ctx.author}')
 
 
 bot.run(token)
