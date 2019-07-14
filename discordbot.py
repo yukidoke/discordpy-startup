@@ -228,7 +228,7 @@ async def cw(ctx):
 #行為判定
 @bot.command()
 async def c(ctx, arg: int):
-    bonus = int(yuno[6])+int(yuno[7]) // 6
+    bonus = (int(yuno[6])+int(yuno[7])) // 6
     phy = int(yuno[13]) + bonus
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
