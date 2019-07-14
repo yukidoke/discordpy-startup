@@ -43,16 +43,12 @@ damage_table = [[-7,0,-1,0,0,0,1,2,2,3,3,4,4],[-7,1,-1,0,0,0,1,2,3,3,3,4,4],[-7,
 exp_table = ['0','A:1000 B:500','A:1000 B:1000','A:1500 B:1000','A:1500 B:1500','A:2000 B:1500','A:2500 B:2000','A:3000 B:2500','A:4000 B:3000','A:5000 B:4000','A:6000 B:5000','A:7500 B:6000','A:9000 B:7500','A:10500 B:9000','A:12000 B:10500','A:13500 B:12000']
 a = random.randint(1,6)
 
-#行為判定
-@bot.command()
-async def try(ctx):
-    await ctx.send('{ctx.author}')
-
 #1個だけ6面ダイスを振るコマンド
 @bot.command()
 async def sr(ctx):
     if bot.user != ctx.author:
         await ctx.send(f'{a}')
+
 #たくさんダイスを振るコマンド
 @bot.command()
 async def r(ctx, arg1 = 'dflt', arg2 = 'dflt'):
@@ -226,6 +222,11 @@ async def cw(ctx):
         else:
             damage = damage_table[10][sum_pips2]
             await ctx.send(f'HPを威力10で回復：{pips2} = {sum_pips2} 基礎回復量：「{damage}」点')
+
+#行為判定
+@bot.command()
+async def c(ctx):
+    await ctx.send('{ctx.author}')
 
 
 bot.run(token)
