@@ -71,7 +71,7 @@ async def r(ctx, arg1 = 'dflt', arg2 = 'dflt'):
                 face = int(splited_dice[1])
                 pips = [random.randint(1, face) for _ in range(count)]
                 sum_pips = sum(pips)
-                await ctx.send(f'「{arg2}」 {pips} = {sum_pips}')
+                await ctx.send(f'{pips} = {sum_pips}')
             else:
                 if sum_pips == 2:
                     await ctx.send(f'「{arg1}」 {pips} = {sum_pips} fumble...')
