@@ -227,8 +227,16 @@ async def cw(ctx):
 
 #行為判定
 @bot.command()
-async def c(ctx):
-    await ctx.send(ctx.guild.members)
+async def c(ctx, arg: int):
+    bonus = int(yuno[6])+int(yuno[7]) // 6
+    phy = int(yuno[13]) + bonus
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = phy + sum_pips
+    if arg <= reached:
+        await ctx.send(f'{pips} = {sum_pips} + {phy} ≧ {arg} 成功')
+    else:
+        await ctx.send(f'{pips} = {sum_pips} + {phy} ＜ {arg} 失敗')
 
-
+        
 bot.run(token)
