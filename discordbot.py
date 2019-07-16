@@ -267,7 +267,7 @@ async def cw(ctx):
 
 #生命抵抗力判定
 @bot.command()
-async def lr(ctx, arg: int):
+async def lr(ctx, arg):
     chara = shelve.open('character.db')
     dict = chara[ctx.author.id]
     bonus = (dict['phy']+dict['phy_plus']) // 6
@@ -275,7 +275,7 @@ async def lr(ctx, arg: int):
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     reached = phy + sum_pips
-    if arg <= reached:
+    if int(arg) <= reached:
         await ctx.send(f'{pips} = {sum_pips} + {phy} ≧ {arg} 成功')
     else:
         await ctx.send(f'{pips} = {sum_pips} + {phy} ＜ {arg} 失敗')
