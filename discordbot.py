@@ -53,7 +53,7 @@ async def regi(ctx, name, arg):
         await ctx.send('ERROR:ステータス値が不足または超過しています')
     else:
         chara = shelve.open('character.db')
-        chara[name] = { 'dex' : int(status[0]), 'dex_plus' : int(status[1]), 'agi' : int(status[2]), 'agi_plus' : int(status[3]), 'str' : int(status[4]), 'str_plus' : int(status[5]), 'phy' : int(status[6]), 'phy_plus' : int(status[7]), 'int' : int(status[8]), 'int_plus' : int(status[9]), 'men' : int(status[10]), 'men_plus' : int(status[11]), 'exp' : int(status[12]), 'lv' : int(status[13]), 'tec_pack' : int(status[14]), 'mov_pack' : int(status[15]), 'obs_pack' : int(status[16]), 'wis_pack' : int(status[17]), 'hit' : int(status[18]), 'atk' : int(status[19]), 'dog' : int(status[20]), 'def' : int(status[21]), 'mag' : int(status[22]), 'hp' : int(status[23]), 'mp' : int(status[24]) }
+        chara[str(ctx.author.id)] = { 'name' : name, 'dex' : int(status[0]), 'dex_plus' : int(status[1]), 'agi' : int(status[2]), 'agi_plus' : int(status[3]), 'str' : int(status[4]), 'str_plus' : int(status[5]), 'phy' : int(status[6]), 'phy_plus' : int(status[7]), 'int' : int(status[8]), 'int_plus' : int(status[9]), 'men' : int(status[10]), 'men_plus' : int(status[11]), 'exp' : int(status[12]), 'lv' : int(status[13]), 'tec_pack' : int(status[14]), 'mov_pack' : int(status[15]), 'obs_pack' : int(status[16]), 'wis_pack' : int(status[17]), 'hit' : int(status[18]), 'atk' : int(status[19]), 'dog' : int(status[20]), 'def' : int(status[21]), 'mag' : int(status[22]), 'hp' : int(status[23]), 'mp' : int(status[24]) }
         chara.close()
         await ctx.send(f'''以下の情報を保存しました。
         キャラクター名：{name}
@@ -77,6 +77,13 @@ async def regi(ctx, name, arg):
         HP：{status[23]}
         MP：{status[24]}''')
 
+#能力値の登録解除
+@bot.command()
+async def deregi(ctx, name):
+    chara = shelve.open('character.db')
+    del chara[name]
+    chara.close()
+    await ctx.send('登録された情報を削除しました。')
 
 #1個だけ6面ダイスを振るコマンド
 @bot.command()
