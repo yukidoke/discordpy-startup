@@ -7,8 +7,6 @@ import shelve
 bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
 
-#既に使われているコマンド：r, sr, dmg, exp, q, m, h, t, cw
-
 #概要を説明するコマンド
 @bot.command()
 async def swds(ctx):
@@ -267,7 +265,7 @@ async def cw(ctx):
 
 #生命抵抗力判定
 @bot.command()
-async def lr(ctx, arg):
+async def pr(ctx, arg):
     chara = shelve.open('character.db')
     dict = chara[str(ctx.author.id)]
     chara.close()
@@ -276,10 +274,48 @@ async def lr(ctx, arg):
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     reached = phy + sum_pips
-    if int(arg) <= reached:
-        await ctx.send(f'{pips} = {sum_pips} + {phy} ≧ {arg} 成功')
+    if sum_pips == 2:
+        await ctx.send(f'生命抵抗力判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'生命抵抗力判定：{pips} = {sum_pips} CRITICAL!!')
     else:
-        await ctx.send(f'{pips} = {sum_pips} + {phy} ＜ {arg} 失敗')
+        if int(arg) <= reached:
+            await ctx.send(f'生命抵抗力判定：{pips} = {sum_pips} + {phy} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'生命抵抗力判定：{pips} = {sum_pips} + {phy} ＜ {arg} 失敗')
+
+#精神抵抗力判定
+@bot.command()
+async def mr(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    bonus = (dict['men']+dict['men_plus']) // 6
+    men = dict['lv'] + bonus
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = men + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'精神抵抗力判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'精神抵抗力判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) <= reached:
+            await ctx.send(f'精神抵抗力判定：{pips} = {sum_pips} + {men} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'精神抵抗力判定：{pips} = {sum_pips} + {men} ＜ {arg} 失敗')
+
+#成長
+@bot.command()
+async def grow(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    try:
+        dict[f'{arg}_plus'] += 1
+        await ctx.send(f'成長：{arg} +1')
+    except:
+        await ctx.send(f'{arg}は能力値に設定されていません。dex,agi,str,phy,int,menが対応しています。')
 
 
 bot.run(token)
