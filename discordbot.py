@@ -269,7 +269,8 @@ async def cw(ctx):
 @bot.command()
 async def lr(ctx, arg):
     chara = shelve.open('character.db')
-    dict = chara[ctx.author.id]
+    dict = chara[str(ctx.author.id)]
+    chara.close()
     bonus = (dict['phy']+dict['phy_plus']) // 6
     phy = dict['lv'] + bonus
     pips = [random.randint(1, 6) for _ in range(2)]
