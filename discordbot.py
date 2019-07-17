@@ -4,7 +4,7 @@ import traceback
 import random
 import shelve
 
-bot = commands.Bot(command_prefix='-')
+bot = commands.Bot(command_prefix='')
 token = os.environ['DISCORD_BOT_TOKEN']
 
 #概要を説明するコマンド
@@ -249,7 +249,7 @@ async def exp(ctx, arg):
 
 #行使判定
 @bot.command()
-async def mp(ctx, arg='default'):
+async def mp(ctx, arg='dflt'):
     if arg.isdecimal():
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
@@ -262,8 +262,12 @@ async def mp(ctx, arg='default'):
             if sum_pips == 2:
                 await ctx.send(f'{pips2} = {sum_pips2} fumble...')
             else:
+                chara = shelve.open('character.db')
+                dict = chara[str(ctx.author.id)]
+                chara.close()
                 damage = damage_table[int(arg)][sum_pips]
-                await ctx.send(f'{pips2} = {sum_pips2} 威力表{arg}で「{damage}」点のダメージ')
+                amount = damage + dict['mag']
+                await ctx.send(f'{pips2} = {sum_pips2} 威力表{arg}：「{damage}」点　合計：「{amount}」点')
     else:
         pips = [random.randint(1, 6) for _ in range(2)]
         sum_pips = sum(pips)
@@ -285,7 +289,7 @@ async def q(ctx):
     else:
         damage = damage_table[10][sum_pips]
         amount = damage + dict['tec']
-        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 威力10：「{damage}」点 合計：「{amount}」点')
+        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 威力10：「{damage}」点　合計：「{amount}」点')
 
 @bot.command()
 async def h(ctx):
@@ -299,7 +303,7 @@ async def h(ctx):
     else:
         damage = damage_table[20][sum_pips]
         amount = damage + dict['obs']
-        await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} 威力20：「{damage}」点 合計：「{amount}」点')
+        await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} 威力20：「{damage}」点　合計：「{amount}」点')
 
 @bot.command()
 async def t(ctx):
@@ -313,7 +317,7 @@ async def t(ctx):
     else:
         damage = damage_table[30][sum_pips]
         amount = damage + dict['obs']
-        await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} 威力30：「{damage}」点 合計：「{amount}」点')
+        await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} 威力30：「{damage}」点　合計：「{amount}」点')
 
 @bot.command()
 async def m(ctx):
@@ -327,7 +331,7 @@ async def m(ctx):
     else:
         damage = damage_table[0][sum_pips]
         amount = damage + dict['tec']
-        await ctx.send(f'魔香草を使用：{pips} = {sum_pips} 威力0：「{damage}」点 合計：「{amount}」点')
+        await ctx.send(f'魔香草を使用：{pips} = {sum_pips} 威力0：「{damage}」点　合計：「{amount}」点')
 
 @bot.command()
 async def cw(ctx):
@@ -347,7 +351,7 @@ async def cw(ctx):
         else:
             damage = damage_table[10][sum_pips2]
             amount = damage + dict['tec']
-            await ctx.send(f'回復量決定：{pips2} = {sum_pips2} 威力10：「{damage}」点 合計：「{amount}」点')
+            await ctx.send(f'回復量決定：{pips2} = {sum_pips2} 威力10：「{damage}」点　合計：「{amount}」点')
 
 #生命抵抗力判定
 @bot.command()
