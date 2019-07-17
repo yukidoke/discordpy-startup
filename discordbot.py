@@ -36,8 +36,10 @@ async def stat(ctx):
     指輪・腕輪込の能力値とその成長（dex,agi,str,phy,int,menの順）、経験点、冒険者レベル、各種判定パッケージ基礎値（tec,mov,obs,wisの順）、命中力、追加ダメージ、回避力、防護点、魔力、HP、MPの合計25の数値が必須です。
     `-deregi`で登録情報を削除します。
     `-status`で登録した情報を参照します。
+    `-ref status`で任意のステータスを参照します。
+    nを整数として、`-change_status status n`で任意のステータスにnを加えます。
     `-pr`で生命抵抗力判定、`-mr`で精神抵抗力判定が行えます。
-    `-grow (status)`で任意のステータスを成長させられます。''')
+    `-grow (status)`で任意の能力値を成長させられます。''')
 
 @bot.command()
 async def cmds(ctx):
@@ -63,7 +65,7 @@ async def regi(ctx, name, arg):
         await ctx.send('ERROR:ステータス値が不足または超過しています')
     else:
         chara = shelve.open('character.db')
-        chara[str(ctx.author.id)] = { 'name' : name, 'dex' : int(status[0]), 'dex_plus' : int(status[1]), 'agi' : int(status[2]), 'agi_plus' : int(status[3]), 'str' : int(status[4]), 'str_plus' : int(status[5]), 'phy' : int(status[6]), 'phy_plus' : int(status[7]), 'int' : int(status[8]), 'int_plus' : int(status[9]), 'men' : int(status[10]), 'men_plus' : int(status[11]), 'exp' : int(status[12]), 'lv' : int(status[13]), 'tec_pack' : int(status[14]), 'mov_pack' : int(status[15]), 'obs_pack' : int(status[16]), 'wis_pack' : int(status[17]), 'hit' : int(status[18]), 'atk' : int(status[19]), 'dog' : int(status[20]), 'def' : int(status[21]), 'mag' : int(status[22]), 'hp' : int(status[23]), 'mp' : int(status[24]) }
+        chara[str(ctx.author.id)] = { 'name' : name, 'dex' : int(status[0]), 'dex_plus' : int(status[1]), 'agi' : int(status[2]), 'agi_plus' : int(status[3]), 'str' : int(status[4]), 'str_plus' : int(status[5]), 'phy' : int(status[6]), 'phy_plus' : int(status[7]), 'int' : int(status[8]), 'int_plus' : int(status[9]), 'men' : int(status[10]), 'men_plus' : int(status[11]), 'exp' : int(status[12]), 'lv' : int(status[13]), 'tec' : int(status[14]), 'mov' : int(status[15]), 'obs' : int(status[16]), 'wis' : int(status[17]), 'hit' : int(status[18]), 'atk' : int(status[19]), 'dog' : int(status[20]), 'def' : int(status[21]), 'mag' : int(status[22]), 'hp' : int(status[23]), 'mp' : int(status[24]) }
         chara.close()
         await ctx.send(f'''以下の情報を保存しました。
         キャラクター名：{name}
@@ -95,13 +97,57 @@ async def deregi(ctx):
     chara.close()
     await ctx.send('登録された情報を削除しました。')
 
-#能力値の参照
+#能力値すべての参照
 @bot.command()
-async def status(ctx, name):
+async def status(ctx):
     chara = shelve.open('character.db')
-    status = chara[str(ctx.author.id)]
+    dict = chara[str(ctx.author.id)]
     chara.close()
-    await ctx.send(f'{status}')
+    await ctx.send(f'''以下の情報を保存しました。
+    キャラクター名：{dict['name']}
+    器用度：{dict['dex']}+{dict['dex_plus']}
+    敏捷度：{dict['agi']}+{dict['agi_plus']}
+    筋力：{dict['str']}+{dict['str_plus']}
+    生命力：{dict['phy']}+{dict['phy_plus']}
+    知力：{dict['int']}+{dict['int_plus']}
+    精神力：{dict['men']}+{dict['men_plus']}
+    経験点：{dict['exp']}
+    冒険者レベル：{dict['lv']}
+    技巧判定基礎値：{dict['tec']}
+    運動判定基礎値：{dict['mov']}
+    観察判定基礎値：{dict['obs']}
+    知識判定基礎値：{dict['wis']}
+    命中力：{dict['hit']}
+    追加ダメージ：{dict['atk']}
+    回避力：{dict['dog']}
+    防護点：{dict['def']}
+    魔力：{dict['mag']}
+    HP：{dict['hp']}
+    MP：{dict['mp']}''')
+
+#能力値ひとつの参照
+async def ref(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    try:
+        status = dict[f'{arg}']
+        chara.close()
+        await ctx.send(f'{arg}：{status}')
+    except:
+        await ctx.send(f'ERROR:{arg}に相当するステータスが存在しません')
+
+#能力値変更
+@bot.command()
+async def change_status(ctx, arg, num):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    try:
+        dict[f'{arg}'] += int(num)
+        chara[str(ctx.author.id)] = dict
+        chara.close()
+        await ctx.send(f'{arg}の値に{num}を加えました。')
+    except:
+        await ctx.send(f'ERROR:{arg}に相当するステータスが存在しません')
 
 #1個だけ6面ダイスを振るコマンド
 @bot.command()
