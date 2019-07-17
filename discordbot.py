@@ -14,6 +14,7 @@ async def swds(ctx):
     略称SWDSです。ソーズ(Swords)とお呼び下さい。
     `-r`で2d6を振ります。`-sr`で1d6を振ります。
     ダイスロールに関する詳細は`-dice`
+    能力値の更新などに関する詳細は`-stat`
     その他のコマンドに関する詳細は`-cmds`で参照できます。''')
 
 @bot.command()
@@ -29,8 +30,19 @@ async def dice(ctx):
     ダメージを伴う魔法の場合は、威力をnとして、`-mp n`でダメージまで同時に算出します。''')
 
 @bot.command()
+async def stat(ctx):
+    await ctx.send('''【能力値関係について】
+    `-regi character_name (status)`で冒険者の情報を登録します。
+    指輪・腕輪込の能力値とその成長（dex,agi,str,phy,int,menの順）、経験点、冒険者レベル、各種判定パッケージ基礎値（tec,mov,obs,wisの順）、命中力、追加ダメージ、回避力、防護点、魔力、HP、MPの合計25の数値が必須です。
+    `-deregi`で登録情報を削除します。
+    `-status`で登録した情報を参照します。
+    `-pr`で生命抵抗力判定、`-mr`で精神抵抗力判定が行えます。
+    `-grow (status)`で任意のステータスを成長させられます。''')
+
+@bot.command()
 async def cmds(ctx):
-    await ctx.send('''技能Lvを1上げてnにするために必要な経験点は`-exp n`で参照できます。
+    await ctx.send('''【その他のコマンドについて】
+    技能Lvを1上げてnにするために必要な経験点は`-exp n`で参照できます。
     また、よく使われるであろうアイテムや魔法は別のコマンドで代替できます。
     `-q`で＜救命草＞を使用します。`-m`で＜魔香草＞・＜魔香水＞を使用します。
     `-h`で＜ヒーリングポーション＞を使用します。
@@ -77,11 +89,19 @@ async def regi(ctx, name, arg):
 
 #能力値の登録解除
 @bot.command()
-async def deregi(ctx, name):
+async def deregi(ctx):
     chara = shelve.open('character.db')
-    del chara[name]
+    del chara[str(ctx.author.id)]
     chara.close()
     await ctx.send('登録された情報を削除しました。')
+
+#能力値の参照
+@bot.command()
+async def status(ctx, name):
+    chara = shelve.open('character.db')
+    status = chara[str(ctx.author.id)]
+    chara.close()
+    await ctx.send(f'{status}')
 
 #1個だけ6面ダイスを振るコマンド
 @bot.command()
@@ -310,10 +330,13 @@ async def mr(ctx, arg):
 async def grow(ctx, arg):
     chara = shelve.open('character.db')
     dict = chara[str(ctx.author.id)]
-    chara.close()
     try:
         dict[f'{arg}_plus'] += 1
-        await ctx.send(f'成長：{arg} +1')
+        chara[str(ctx.author.id)] = dict
+        sum = dict[f'{arg}_plus']
+        new_status = dict[f'{arg}'] + dict[f'{arg}_plus']
+        chara.close()
+        await ctx.send(f'成長：{arg} +1 累計成長：{sum} 累計{arg}：{new_status}')
     except:
         await ctx.send(f'{arg}は能力値に設定されていません。dex,agi,str,phy,int,menが対応しています。')
 
