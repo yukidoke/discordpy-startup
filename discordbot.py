@@ -46,7 +46,7 @@ async def cmds(ctx):
     await ctx.send('''【その他のコマンドについて】
     技能Lvを1上げてnにするために必要な経験点は`-exp n`で参照できます。
     また、よく使われるであろうアイテムや魔法は別のコマンドで代替できます。
-    `-q`で＜救命草＞を使用します。`-m`で＜魔香草＞・＜魔香水＞を使用します。
+    `-q`で＜救命草＞を使用します。`-m`で＜魔香草＞を使用します。
     `-h`で＜ヒーリングポーション＞を使用します。
     `-t`で＜トリートポーション＞を使用します。
     `-cw`で【キュア・ウーンズ】を行使します。''')
@@ -103,7 +103,7 @@ async def status(ctx):
     chara = shelve.open('character.db')
     dict = chara[str(ctx.author.id)]
     chara.close()
-    await ctx.send(f'''以下の情報を保存しました。
+    await ctx.send(f'''キャラクター情報を参照します。
     キャラクター名：{dict['name']}
     器用度：{dict['dex']}+{dict['dex_plus']}
     敏捷度：{dict['agi']}+{dict['agi_plus']}
@@ -126,6 +126,7 @@ async def status(ctx):
     MP：{dict['mp']}''')
 
 #能力値ひとつの参照
+@bot.command()
 async def ref(ctx, arg):
     chara = shelve.open('character.db')
     dict = chara[str(ctx.author.id)]
@@ -275,46 +276,65 @@ async def mp(ctx, arg='default'):
 #その他汎用コマンド
 @bot.command()
 async def q(ctx):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
-        await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} fumble...')
+        await ctx.send(f'救命草を使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[10][sum_pips]
-        await ctx.send(f'HPを威力10で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+        sum = damage + dict['tec']
+        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 威力10：「{damage}」点 合計：「{sum}」点')
 
 @bot.command()
 async def h(ctx):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
-        await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} fumble...')
+        await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[20][sum_pips]
-        await ctx.send(f'HPを威力20で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+        sum = damage + dict['obs']
+        await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} 威力20：「{damage}」点 合計：「{sum}」点')
 
 @bot.command()
 async def t(ctx):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
-        await ctx.send(f'HPを威力30で回復：{pips} = {sum_pips} fumble...')
+        await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[30][sum_pips]
-        await ctx.send(f'HPを威力30で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+        sum = damage + dict['obs']
+        await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} 威力30：「{damage}」点 合計：「{sum}」点')
 
 @bot.command()
 async def m(ctx):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
-        await ctx.send(f'MPを威力0で回復：{pips} = {sum_pips} fumble...')
+        await ctx.send(f'魔香草を使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[0][sum_pips]
-        await ctx.send(f'MPを威力0で回復：{pips} = {sum_pips} 基礎回復量：「{damage}」点')
+        sum = damage + dict['tec']
+        await ctx.send(f'魔香草を使用：{pips} = {sum_pips} 威力0：「{damage}」点 合計：「{sum}」点')
 
 @bot.command()
 async def cw(ctx):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
     pips = [random.randint(1, 6) for _ in range(2)]
     sum_pips = sum(pips)
     if sum_pips == 2:
@@ -324,10 +344,11 @@ async def cw(ctx):
         pips2 = [random.randint(1, 6) for _2 in range(2)]
         sum_pips2 = sum(pips2)
         if sum_pips == 2:
-            await ctx.send(f'HPを威力10で回復：{pips2} = {sum_pips2} fumble...')
+            await ctx.send(f'回復量決定：{pips2} = {sum_pips2} fumble...')
         else:
             damage = damage_table[10][sum_pips2]
-            await ctx.send(f'HPを威力10で回復：{pips2} = {sum_pips2} 基礎回復量：「{damage}」点')
+            sum = damage + dict['tec']
+            await ctx.send(f'回復量決定：{pips2} = {sum_pips2} 威力10：「{damage}」点 合計：「{sum}」点')
 
 #生命抵抗力判定
 @bot.command()
@@ -370,6 +391,122 @@ async def mr(ctx, arg):
             await ctx.send(f'精神抵抗力判定：{pips} = {sum_pips} + {men} ≧ {arg} 成功')
         else:
             await ctx.send(f'精神抵抗力判定：{pips} = {sum_pips} + {men} ＜ {arg} 失敗')
+
+#パッケージ判定
+@bot.command()
+async def tec(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    tec = dict['tec']
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = tec + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'技巧判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'技巧判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) <= reached:
+            await ctx.send(f'技巧判定：{pips} = {sum_pips} + {tec} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'技巧判定：{pips} = {sum_pips} + {tec} ＜ {arg} 失敗')
+
+@bot.command()
+async def mov(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    mov = dict['mov']
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = mov + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'運動判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'運動判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) <= reached:
+            await ctx.send(f'運動判定：{pips} = {sum_pips} + {mov} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'運動判定：{pips} = {sum_pips} + {mov} ＜ {arg} 失敗')
+
+@bot.command()
+async def obs(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    obs = dict['obs']
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = obs + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'観察判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'観察判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) <= reached:
+            await ctx.send(f'観察判定：{pips} = {sum_pips} + {obs} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'観察判定：{pips} = {sum_pips} + {obs} ＜ {arg} 失敗')
+
+@bot.command()
+async def wis(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    wis = dict['wis']
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = wis + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'知識判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'知識判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) <= reached:
+            await ctx.send(f'知識判定：{pips} = {sum_pips} + {wis} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'知識判定：{pips} = {sum_pips} + {wis} ＜ {arg} 失敗')
+
+#命中と回避
+@bot.command()
+async def hit(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    hit = dict['hit']
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = hit + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'命中力判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'命中力判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) < reached:
+            await ctx.send(f'命中力判定：{pips} = {sum_pips} + {hit} ＞ {arg} 成功')
+        else:
+            await ctx.send(f'命中力判定：{pips} = {sum_pips} + {hit} ≦ {arg} 失敗')
+
+@bot.command()
+async def dog(ctx, arg):
+    chara = shelve.open('character.db')
+    dict = chara[str(ctx.author.id)]
+    chara.close()
+    dog = dict['dog']
+    pips = [random.randint(1, 6) for _ in range(2)]
+    sum_pips = sum(pips)
+    reached = dog + sum_pips
+    if sum_pips == 2:
+        await ctx.send(f'回避力判定：{pips} = {sum_pips} fumble...')
+    elif sum_pips == 12:
+        await ctx.send(f'回避力判定：{pips} = {sum_pips} CRITICAL!!')
+    else:
+        if int(arg) <= reached:
+            await ctx.send(f'回避力判定：{pips} = {sum_pips} + {dog} ≧ {arg} 成功')
+        else:
+            await ctx.send(f'回避力判定：{pips} = {sum_pips} + {dog} ＜ {arg} 失敗')
 
 #成長
 @bot.command()
