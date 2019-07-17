@@ -284,8 +284,8 @@ async def q(ctx):
         await ctx.send(f'救命草を使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[10][sum_pips]
-        sum = damage + int(dict['tec'])
-        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 威力10：「{damage}」点 合計：「{sum}」点')
+        amount = damage + dict['tec']
+        await ctx.send(f'救命草を使用：{pips} = {sum_pips} 威力10：「{damage}」点 合計：「{amount}」点')
 
 @bot.command()
 async def h(ctx):
@@ -298,8 +298,8 @@ async def h(ctx):
         await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[20][sum_pips]
-        sum = damage + int(dict['obs'])
-        await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} 威力20：「{damage}」点 合計：「{sum}」点')
+        amount = damage + dict['obs']
+        await ctx.send(f'ヒーリングポーションを使用：{pips} = {sum_pips} 威力20：「{damage}」点 合計：「{amount}」点')
 
 @bot.command()
 async def t(ctx):
@@ -312,8 +312,8 @@ async def t(ctx):
         await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[30][sum_pips]
-        sum = damage + int(dict['obs'])
-        await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} 威力30：「{damage}」点 合計：「{sum}」点')
+        amount = damage + dict['obs']
+        await ctx.send(f'トリートポーションを使用：{pips} = {sum_pips} 威力30：「{damage}」点 合計：「{amount}」点')
 
 @bot.command()
 async def m(ctx):
@@ -326,8 +326,8 @@ async def m(ctx):
         await ctx.send(f'魔香草を使用：{pips} = {sum_pips} fumble...')
     else:
         damage = damage_table[0][sum_pips]
-        sum = int(damage) + dict['tec']
-        await ctx.send(f'魔香草を使用：{pips} = {sum_pips} 威力0：「{damage}」点 合計：「{sum}」点')
+        amount = damage + dict['tec']
+        await ctx.send(f'魔香草を使用：{pips} = {sum_pips} 威力0：「{damage}」点 合計：「{amount}」点')
 
 @bot.command()
 async def cw(ctx):
@@ -346,8 +346,8 @@ async def cw(ctx):
             await ctx.send(f'回復量決定：{pips2} = {sum_pips2} fumble...')
         else:
             damage = damage_table[10][sum_pips2]
-            sum = int(damage) + dict['tec']
-            await ctx.send(f'回復量決定：{pips2} = {sum_pips2} 威力10：「{damage}」点 合計：「{sum}」点')
+            amount = damage + dict['tec']
+            await ctx.send(f'回復量決定：{pips2} = {sum_pips2} 威力10：「{damage}」点 合計：「{amount}」点')
 
 #生命抵抗力判定
 @bot.command()
