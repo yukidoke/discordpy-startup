@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 import os
 import traceback
@@ -7,6 +8,10 @@ import shelve
 bot = commands.Bot(command_prefix='-')
 token = os.environ['DISCORD_BOT_TOKEN']
 
+@bot.event
+async def on_ready():
+    print('剣の加護があらんことを。')
+    
 @bot.command()
 async def play(ctx):
     await ctx.send(f'{ctx.author.name}')
