@@ -12,8 +12,8 @@ token = os.environ['DISCORD_BOT_TOKEN']
 @client.event
 async def on_message(ctx):
     if ctx.content == '-cache':
-    ch = client.get_channel(601095696082534410)
-    await ch.send(f'{ctx.guild.members}')
+        ch = client.get_channel(601095696082534410)
+        await ch.send(f'{ctx.guild.members}')
 
 @bot.command()
 async def playing(ctx):
