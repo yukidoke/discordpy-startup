@@ -1,23 +1,11 @@
-import discord
 from discord.ext import commands
 import os
 import traceback
 import random
 import shelve
 
-bot = commands.Bot(command_prefix='-')
-client = discord.Client()
+bot = commands.Bot(command_prefix='')
 token = os.environ['DISCORD_BOT_TOKEN']
-
-@client.event
-async def on_message(message):
-    if message.content == 'cache':
-        ch = client.get_channel(601095696082534410)
-        await ch.send(f'{message.guild.members}')
-
-@bot.command()
-async def playing(ctx):
-    await ctx.send(f'{ctx.author.display_name}')
 
 #概要を説明するコマンド
 @bot.command()
