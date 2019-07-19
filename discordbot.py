@@ -10,10 +10,10 @@ client = discord.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 
 @client.event
-async def on_message(ctx):
-    if ctx.content == 'cache':
+async def on_message(message):
+    if message.content == 'cache':
         ch = client.get_channel(601095696082534410)
-        await ch.send(f'{ctx.guild.members}')
+        await ch.send(f'{message.guild.members}')
 
 @bot.command()
 async def playing(ctx):
