@@ -13,9 +13,10 @@ async def on_ready():
     print('剣の加護があらんことを。')
     
 @bot.command()
-async def play(ctx):
-    await ctx.send(f'{ctx.author.name}')
-
+async def cache(ctx):
+    ch = bot.get_channel(601095696082534410)
+    await ch.send(f'{ctx.guild.members}')
+    
 @bot.command()
 async def playing(ctx):
     await ctx.send(f'{ctx.author.display_name}')
