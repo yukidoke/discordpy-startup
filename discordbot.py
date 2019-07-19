@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 import os
 import traceback
@@ -6,20 +5,17 @@ import random
 import shelve
 
 bot = commands.Bot(command_prefix='-')
+client = discord.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 
-@bot.event
-async def on_ready():
-    print('剣の加護があらんことを。')
-    
-@bot.command()
-async def cache(ctx):
-    ch = bot.get_channel(601095696082534410)
+@client.event
+async def on_message(ctx):
+    ch = client.get_channel(601095696082534410)
     await ch.send(f'{ctx.guild.members}')
-    
+
 @bot.command()
 async def playing(ctx):
-    await ctx.send(f'{ctx.author.display_name}')
+await ctx.send(f'{ctx.author.display_name}')
 
 #概要を説明するコマンド
 @bot.command()
