@@ -19,7 +19,6 @@ class MyBot(commands.Bot):
         # スーパークラスのコンストラクタに値を渡して実行。
         super().__init__(command_prefix)
         # INITIAL_COGSに格納されている名前から、コグを読み込む。
-        # エラーが発生した場合は、エラー内容を表示。
         for cog in extensions:
             try:
                 self.load_extension(cog)
