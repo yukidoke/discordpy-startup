@@ -4,7 +4,12 @@ import traceback
 
 extensions = [
     'cogs.explain',
-    'cogs.register'
+    'cogs.register',
+    'cogs.dice',
+    'cogs.damage',
+    'cogs.commands'
+    'cogs.judge'
+    'cogs.rewards'
 ]
 
 # クラスの定義。ClientのサブクラスであるBotクラスを継承。
