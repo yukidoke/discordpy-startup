@@ -90,7 +90,7 @@ class Register(commands.Cog):
 
     #能力値変更
     @commands.command()
-    async def change_status(self, ctx, arg, num):
+    async def change(self, ctx, arg, num):
         chara = shelve.open('character.db')
         dict = chara[str(ctx.author.id)]
         try:
@@ -101,7 +101,6 @@ class Register(commands.Cog):
         except:
             await ctx.send(f'ERROR:{arg}に相当するステータスが存在しません')
 
-
 # Bot本体側からコグを読み込む際に呼び出される関数。
 def setup(bot):
-    bot.add_cog(Register(bot)) # TestCogにBotを渡してインスタンス化し、Botにコグとして登録する。
+    bot.add_cog(Register(bot)) # CogにBotを渡してインスタンス化し、Botにコグとして登録する。
