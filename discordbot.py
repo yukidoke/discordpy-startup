@@ -7,8 +7,8 @@ extensions = [
     'cogs.register',
     'cogs.dice',
     'cogs.damage',
-    'cogs.shortcuts'
-    'cogs.judge'
+    'cogs.shortcuts',
+    'cogs.judge',
     'cogs.rewards'
 ]
 
