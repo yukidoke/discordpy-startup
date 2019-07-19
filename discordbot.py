@@ -3,7 +3,8 @@ import os
 import traceback
 
 extensions = [
-    'cogs.explain'
+    'cogs.explain',
+    'cogs.register'
 ]
 
 # クラスの定義。ClientのサブクラスであるBotクラスを継承。
