@@ -7,6 +7,14 @@ import shelve
 bot = commands.Bot(command_prefix='')
 token = os.environ['DISCORD_BOT_TOKEN']
 
+@bot.command()
+async def play(ctx):
+    await ctx.send(f'{ctx.author.name}')
+
+@bot.command()
+async def playing(ctx):
+await ctx.send(f'{ctx.author.display_name}')
+
 #概要を説明するコマンド
 @bot.command()
 async def swds(ctx):
