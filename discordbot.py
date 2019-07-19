@@ -13,7 +13,7 @@ async def play(ctx):
 
 @bot.command()
 async def playing(ctx):
-await ctx.send(f'{ctx.author.display_name}')
+    await ctx.send(f'{ctx.author.display_name}')
 
 #概要を説明するコマンド
 @bot.command()
