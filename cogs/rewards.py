@@ -9,8 +9,8 @@ class Rewards(commands.Cog):
         self.bot = bot
 
     #経験点参照コマンド
-    @bot.command()
-    async def exp(ctx, arg):
+    @commands.command()
+    async def exp(self, ctx, arg):
         if arg.isdecimal():
             level = int(arg)
             exp_table = ['0','A:1000 B:500','A:1000 B:1000','A:1500 B:1000','A:1500 B:1500','A:2000 B:1500','A:2500 B:2000','A:3000 B:2500','A:4000 B:3000','A:5000 B:4000','A:6000 B:5000','A:7500 B:6000','A:9000 B:7500','A:10500 B:9000','A:12000 B:10500','A:13500 B:12000']
@@ -19,8 +19,8 @@ class Rewards(commands.Cog):
             await ctx.send('ERROR:対象となるLvが適切に入力されていません')
 
     #成長
-    @bot.command()
-    async def grow(ctx, arg):
+    @commands.command()
+    async def grow(self, ctx, arg):
         chara = shelve.open('character.db')
         dict = chara[str(ctx.author.id)]
         try:
