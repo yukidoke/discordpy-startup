@@ -13,11 +13,9 @@ class Save(commands.Cog):
     @commands.command()
     async def save(self, ctx):
         character_sheet = []
-        for m in ctx.guild.members:
-            character_sheet.append(m)
         client = discord.Client()
         channel = client.get_channel(601095696082534410)
-        await channel.send(f'{character_sheet}')
+        await channel.send(f'{ctx.guild.members}')
 
 # Bot本体側からコグを読み込む際に呼び出される関数。
 def setup(bot):
