@@ -14,13 +14,7 @@ class Save(commands.Cog):
     async def save(self, ctx):
         character_sheet = []
         for m in ctx.guild.members:
-            try:
-                chara = shelve.open('character.db')
-                dict = chara[str(ctx.m.id)]
-                character_sheet.append(dict)
-            except Exception:
-                pass
-        chara.close()
+            character_sheet.append(ctx.m.id)
         client = discord.Client()
         channel = client.get_channel(601095696082534410)
         await channel.send(f'{character_sheet}')
