@@ -1,4 +1,4 @@
-from discord.ext import commands # Bot Commands Frameworkのインポート
+from discord.ext import commands
 import shelve
 
 # コグとして用いるクラスを定義。
@@ -16,7 +16,7 @@ class Register(commands.Cog):
             await ctx.send('ERROR:ステータス値が不足または超過しています')
         else:
             chara = shelve.open('character.db')
-            chara[str(ctx.author.id)] = { 'name' : name, 'dex' : int(status[0]), 'dex_plus' : int(status[1]), 'agi' : int(status[2]), 'agi_plus' : int(status[3]), 'str' : int(status[4]), 'str_plus' : int(status[5]), 'phy' : int(status[6]), 'phy_plus' : int(status[7]), 'int' : int(status[8]), 'int_plus' : int(status[9]), 'men' : int(status[10]), 'men_plus' : int(status[11]), 'exp' : int(status[12]), 'lv' : int(status[13]), 'tec' : int(status[14]), 'mov' : int(status[15]), 'obs' : int(status[16]), 'wis' : int(status[17]), 'hit' : int(status[18]), 'atk' : int(status[19]), 'dog' : int(status[20]), 'def' : int(status[21]), 'mag' : int(status[22]), 'hp' : int(status[23]), 'mp' : int(status[24]) }
+            chara[str(ctx.author.id)] = { 'id' : ctx.author.id, 'name' : name, 'dex' : int(status[0]), 'dex_plus' : int(status[1]), 'agi' : int(status[2]), 'agi_plus' : int(status[3]), 'str' : int(status[4]), 'str_plus' : int(status[5]), 'phy' : int(status[6]), 'phy_plus' : int(status[7]), 'int' : int(status[8]), 'int_plus' : int(status[9]), 'men' : int(status[10]), 'men_plus' : int(status[11]), 'exp' : int(status[12]), 'lv' : int(status[13]), 'tec' : int(status[14]), 'mov' : int(status[15]), 'obs' : int(status[16]), 'wis' : int(status[17]), 'hit' : int(status[18]), 'atk' : int(status[19]), 'dog' : int(status[20]), 'def' : int(status[21]), 'mag' : int(status[22]), 'hp' : int(status[23]), 'mp' : int(status[24]) }
             chara.close()
             await ctx.send(f'''以下の情報を保存しました。
             キャラクター名：{name}
@@ -101,6 +101,7 @@ class Register(commands.Cog):
         except:
             await ctx.send(f'ERROR:{arg}に相当するステータスが存在しません')
 
+
 # Bot本体側からコグを読み込む際に呼び出される関数。
 def setup(bot):
-    bot.add_cog(Register(bot))
+    bot.add_cog(Register(bot)) # TestCogにBotを渡してインスタンス化し、Botにコグとして登録する。
