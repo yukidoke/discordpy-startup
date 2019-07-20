@@ -9,7 +9,8 @@ extensions = [
     'cogs.damage',
     'cogs.shortcuts',
     'cogs.judge',
-    'cogs.rewards'
+    'cogs.rewards',
+    'cogs.save'
 ]
 
 # クラスの定義。ClientのサブクラスであるBotクラスを継承。
