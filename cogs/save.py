@@ -14,7 +14,7 @@ class Save(commands.Cog):
     async def save(self, ctx):
         character_sheet = []
         for m in ctx.guild.members:
-            character_sheet.append(ctx.m.id)
+            character_sheet.append(m)
         client = discord.Client()
         channel = client.get_channel(601095696082534410)
         await channel.send(f'{character_sheet}')
