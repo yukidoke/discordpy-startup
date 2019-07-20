@@ -9,8 +9,6 @@ class Save(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
-
     @commands.Cog.listener()
     async def on_message(self, ctx):
         if ctx.author.bot:
@@ -19,7 +17,7 @@ class Save(commands.Cog):
             character_sheet = []
             client = discord.Client()
             channel = client.get_channel(601095696082534410)
-            guild = discord.Guild()
+            guild = discord.Guild(self, ctx)
             member = discord.Member()
             await channel.send(f'{guild.members}')
 
