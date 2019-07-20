@@ -21,7 +21,8 @@ class Save(commands.Cog):
             except Exception:
                 pass
         chara.close()
-        channel = discord.client.get_channel(601095696082534410)
+        client = discord.Client()
+        channel = client.get_channel(601095696082534410)
         await channel.send(f'{character_sheet}')
 
 # Bot本体側からコグを読み込む際に呼び出される関数。
