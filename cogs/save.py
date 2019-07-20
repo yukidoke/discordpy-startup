@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 import shelve
 
 # コグとして用いるクラスを定義。
@@ -20,7 +21,7 @@ class Save(commands.Cog):
             except Exception:
                 pass
         chara.close()
-        channel = client.get_channel(601095696082534410)
+        channel = discord.client.get_channel(601095696082534410)
         await channel.send(f'{character_sheet}')
 
 # Bot本体側からコグを読み込む際に呼び出される関数。
