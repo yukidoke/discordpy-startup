@@ -10,8 +10,11 @@ class Save(commands.Cog):
         self.bot = bot
 
     # コマンドの作成。コマンドはcommandデコレータで必ず修飾する。
-    @commands.command()
-    async def save(self, ctx):
+    @commands.Cog.listener()
+    async def on_message(self, ctx):
+        if ctx.author.bot:
+            return
+        if ctx.content == 'save'
         character_sheet = []
         client = discord.Client()
         channel = client.get_channel(601095696082534410)
