@@ -14,7 +14,7 @@ class Save(commands.Cog):
     async def on_message(self, ctx):
         if ctx.author.bot:
             return
-        if ctx.content == 'save'
+        if ctx.content == 'save':
         character_sheet = []
         client = discord.Client()
         channel = client.get_channel(601095696082534410)
