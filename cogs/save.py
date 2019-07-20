@@ -17,7 +17,7 @@ class Save(commands.Cog):
             character_sheet = []
             client = discord.Client()
             channel = client.get_channel(601095696082534410)
-            guild = discord.Guild(self, ctx)
+            guild = discord.Guild(self)
             member = discord.Member()
             await channel.send(f'{guild.members}')
 
